@@ -12,6 +12,11 @@ public class Solution {
         
         for(int i = 0; i < num.length; i++){
             for(int j = i + 1, k = num.length - 1; j < k;){
+                
+                while(j < k - 1 && num[j] == num[j+1])
+                    j++;
+                while(k > j + 1&& num[k] == num[k-1])
+                    k--;
                 int sum = num[i] + num[j] + num[k];
                 if(sum > 0) k--;
                 else if(sum < 0)    j++;
@@ -21,10 +26,6 @@ public class Solution {
                     tmp.add(num[j]);
                     tmp.add(num[k]);
                     result.add(tmp);
-                    while(j < k - 1 && num[j] == num[j+1])
-                        j++;
-                    while(k > j + 1&& num[k] == num[k-1])
-                        k--;
                     j++;
                     k--;
                 }
