@@ -1,0 +1,46 @@
+//sha b ban fa, wo cao wo zi ji, MGB
+public class Solution {
+    public void merge(int A[], int m, int B[], int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(m == 0){
+            for(int i = 0; i < n; i++)
+                A[i] = B[i];
+        }
+        else if(n == 0){
+            
+        }
+        else if(A[m - 1] < B[0]){
+            for(int i = m; i < m + n; i++)
+                A[i] = B[i - m];
+        }
+        else if(A[0] > B[n - 1]){
+            for(int i = n; i < m; i++)
+                A[m + i] = A[i];
+            int l = Math.max(n,m);
+            for(int i = 0; i < l; i++)
+                A[l + i] = A[i];
+            for(int i = 0; i < n; i++)
+                A[i] = B[i];
+        }
+        else{
+            
+            for(int i = 0; i < n; i++){
+                int index = m + i;
+                for(int j = 0; j < m + i; j++){
+                    if(B[i] < A[j]){
+                        index = j;
+                        break;
+                    }
+                }
+                
+                for(int j = m + i; j > index; j--){
+                    A[j] = A[j - 1];
+                }
+                
+                A[index] = B[i];
+                
+            }
+        }
+    }
+}

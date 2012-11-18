@@ -1,0 +1,32 @@
+public class Solution {
+    public String addBinary(String a, String b) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int aVal = 0, bVal = 0, cVal = 0;
+        for(int i = 0; i < a.length; i++){
+        	int pow = Integer.parseInt(a.charAt(i));
+        	for(int j = 0; j < i; j++){
+						pow *= 2;        	
+        	}
+          aVal += pow;
+        }
+        
+        for(int i = 0; i < b.length; i++){
+        	int pow = Integer.parseInt(b.charAt(i));
+        	for(int j = 0; j < i; j++){
+						pow *= 2;        	
+        	}
+          bVal += pow;
+        }
+        
+        cVal = aVal + bVal;
+        String c = "";
+        convertToBinary(cVal, c);
+        return c;
+    }
+    
+    private void convertToBinary(int cVal, String c){
+    	c = cVal % 2 + c;
+    	convertToBinary(cVal / 2, c);
+    }
+}

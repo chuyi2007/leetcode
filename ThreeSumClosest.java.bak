@@ -1,0 +1,51 @@
+import java.util.Arrays;
+import java.util.HashSet;
+public class Solution {
+    public int threeSumClosest(int[] num, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        Arrays.sort(num);
+        int size = num.length;
+        HashSet<Integer> unique1 = new HashSet<Integer>();
+        HashSet<Integer> unique2 = new HashSet<Integer>();
+        HashSet<Integer> unique3 = new HashSet<Integer>();
+        
+        int smallest = Integer.MAX_VALUE;
+        int finalSum = -Integer.MAX_VALUE;
+        if(target < num[0])
+            return num[0] + num[1] + num[2];
+        else if(target > num[size - 1])
+            return num[size -3] + num[size -2] + num[size -1];
+        else{
+          for(int i = 0; i < size; i++){
+          	if(!unique1.contains(num[i]) && num[i] <= target){
+      			unique1.add(num[i]);
+      			unique2 = new HashSet<Integer>();
+      			for(int j = i + 1; j < size; j++){
+      				if(!unique2.contains(num[j])){
+      					unique2.add(num[j]);
+      					unique3 = new HashSet<Integer>();   
+      					for(int k = size - 1; k > j; k--){
+									if(!unique3.contains(num[k]) && num[k] >= target){
+	      						unique3.add(num[k]);
+                                int sum = num[i] + num[j] + num[k];
+	      						int differ = Math.abs(sum - target);
+                                  
+	      						if(differ == 0){
+	      							return sum;
+	      						}
+	      						else 
+                                  if(differ < smallest){
+											smallest = differ;
+                                            finalSum = sum;
+	      						}
+      						}
+                }
+      				}
+      			}
+      		}
+      	}
+        }
+      	return finalSum;  
+    }
+}
