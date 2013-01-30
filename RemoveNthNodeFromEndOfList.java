@@ -31,3 +31,38 @@ public class Solution {
         return cur;
     }
 }
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ListNode sen = new ListNode(0);
+        sen.next = head;
+        remove(sen, n);
+        return sen.next;
+    }
+    
+    public int remove(ListNode head, int n){
+        if(head == null){
+            return 0;
+        }
+        else{
+            int size = remove(head.next, n) + 1;
+            if(size == n + 1){
+               head.next = head.next.next;
+            }
+            return size;
+        }
+    }
+}
