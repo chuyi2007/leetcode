@@ -32,3 +32,37 @@ public class Solution {
         return finalResult;
     }
 }
+
+public class Solution {
+    public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
+        int max = getMaxLevel(root);
+        for(int i = max - 1; i >= 0; --i){
+            ArrayList<Integer> result = new ArrayList<Integer>();
+            findSameLevel(root, i, result);
+            results.add(result);
+        }
+        return results;
+    }
+    
+    public int getMaxLevel(TreeNode root){
+        if(root!= null)
+            return Math.max(getMaxLevel(root.left), getMaxLevel(root.right)) + 1;
+        else
+            return 0;
+    }
+    
+    public void findSameLevel(TreeNode root, int level, ArrayList<Integer> result){
+        if(root != null){
+            if(level > 0){
+                findSameLevel(root.left, level - 1, result);
+                findSameLevel(root.right, level - 1, result);
+            }
+            else{
+                result.add(root.val);
+            }
+        }
+    }
+}
