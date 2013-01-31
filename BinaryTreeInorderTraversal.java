@@ -24,4 +24,30 @@ public class Solution {
         for(Integer i: tmp) result.add(i);
         return result;
     }
+<<<<<<< Updated upstream
 }
+=======
+
+    public ArrayList<Integer> inorderTraversal(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        Stack<TreeNode> st = new Stack<TreeNode>();
+        TreeNode cur = root;
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        while(!st.isEmpty() || cur != null){
+            if(cur != null){
+                st.push(cur);
+                cur = cur.left;
+            }
+            else{
+                cur = st.pop();
+                result.add(cur.val);
+                cur = cur.right;
+            }
+        }
+        return result;
+    }
+}
+
+    
+>>>>>>> Stashed changes

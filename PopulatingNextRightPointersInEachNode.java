@@ -26,4 +26,16 @@ public class Solution {
             count *= 2;
         }
     }
+	public void connect(TreeLinkNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(root != null){
+            if(root.left != null)
+                root.left.next = root.right;
+            if(root.right != null)
+                root.right.next = root.next != null?root.next.left:null;
+            connect(root.left);
+            connect(root.right);
+        }
+    }
 }
