@@ -43,3 +43,34 @@ public class Solution {
         return Math.max(max, len);
     }
 }
+
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int start = 0, end = 0;
+        int max = 0;
+        if(s.length() < 1)
+            return max;
+        HashSet<Character> set = new HashSet<Character>();
+        
+        while(end < s.length() && start <= end){
+            char c = s.charAt(end);
+            if(!set.contains(c)){
+                set.add(c);
+                ++end;
+            }
+            else{
+                if(set.size() > max)
+                    max = set.size();
+                while(start < end && set.contains(c)){
+                    set.remove(s.charAt(start));
+                    ++start;
+                }
+            }
+        }
+        if(end - start > max)
+            max = end - start;
+        return max;
+    }
+}

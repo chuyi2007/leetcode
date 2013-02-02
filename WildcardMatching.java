@@ -22,3 +22,27 @@ public class Solution {
         return false;
 	}
 }
+
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(p.length() == 0)
+            return s.length() == 0;
+        if(p.charAt(0) != '*'){
+            if(s.length() > 0 && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '?'))
+                return isMatch(s.substring(1), p.substring(1));
+            else
+                return false;
+        }
+        else{
+            boolean flag = false;
+            int i = 1;
+            while(!flag && i <= s.length()){
+                flag = isMatch(s.substring(i), p.substring(1));
+                ++i;
+            }
+            return flag || isMatch(s, p.substring(1));
+        }
+    }
+}
