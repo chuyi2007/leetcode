@@ -7,26 +7,22 @@ public class Solution {
         ArrayList<Integer> result 
         = new ArrayList<Integer>();
         boolean[] set = new boolean[num.length];
-        for(int i = 0; i < set.length; ++i)
-            set[i] = false;
         Arrays.sort(num);
-        naiveRecursion(results, result, set, num, 0);
+        permuteUnique(results, result, set, num, 0);
         return results;
     }
     
-    public void naiveRecursion(ArrayList<ArrayList<Integer>> results, 
+    public void permuteUnique(ArrayList<ArrayList<Integer>> results, 
     ArrayList<Integer> result, boolean[] set, int[] num, int count){
         if(count == num.length){
-            ArrayList<Integer> tmp = new ArrayList<Integer>();
-            tmp.addAll(result);
-            results.add(tmp);
+            results.add(new ArrayList<Integer>(result));
         }
         else{
             for(int i = 0; i < num.length; ++i){
                 if(!set[i]){
                     set[i] = true;
                     result.add(num[i]);
-                    naiveRecursion(results, result, set, num, count + 1);
+                    permuteUnique(results, result, set, num, count + 1);
                     result.remove(result.size() - 1);
                     set[i] = false;
                     while(i < num.length - 1 && num[i] == num[i + 1])

@@ -5,21 +5,17 @@ public class Solution {
         ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> result = new ArrayList<Integer>();
         boolean[] set = new boolean[num.length];
-        for(int i = 0; i < set.length; ++i)
-            set[i] = false;
         backTracking(results, result, num, set, 0);
         return results;
     }
     public void backTracking(ArrayList<ArrayList<Integer>> results, 
     ArrayList<Integer> result, int[] num, boolean[] set, int count){
         if(count == num.length){
-            ArrayList<Integer> tmp = new ArrayList<Integer>();
-            tmp.addAll(result);
-            results.add(tmp);
+            results.add(new ArrayList<Integer>(result));
         }
         else{
             for(int i = 0; i < num.length; ++i){
-                if(set[i] == false){
+                if(!set[i]){
                     set[i] = true;
                     result.add(num[i]);
                     backTracking(results, result, num, set, count + 1);
