@@ -34,3 +34,32 @@ public class Solution {
  
     }
 }
+
+public class Solution {
+    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        Arrays.sort(num);
+        return subsetsWithDup(num, num.length - 1, new HashSet<ArrayList<Integer>>());
+    }
+    
+    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num, int index, HashSet<ArrayList<Integer>> set){
+        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
+        if(index < 0){
+            results.add(new ArrayList<Integer>());
+        }
+        else{
+            results = subsetsWithDup(num, index - 1, set);
+            int size = results.size();
+            for(int i = 0; i < size; ++i){
+                ArrayList<Integer> tmp = new ArrayList<Integer>(results.get(i));
+                tmp.add(num[index]);
+                if(!set.contains(tmp)){
+                    results.add(tmp);
+                    set.add(tmp);
+                }
+            }
+        }
+        return results;
+    }
+}

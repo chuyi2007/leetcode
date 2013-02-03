@@ -19,3 +19,25 @@ public class Solution {
         return root;
     } 
 }
+
+public class Solution {
+    public int sqrt(int x) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int max = x, min = 1;
+        int minValue = Integer.MAX_VALUE;
+        int root = 0;
+        while(min <= max){
+            int mid = (max + min)/2;
+            int diff = mid * mid - x;
+            if(diff <= 0 && -diff < minValue){
+                minValue = -diff;
+                root = mid;
+            }
+            if(diff < 0) min = mid + 1;
+            else if(diff > 0)    max = mid - 1;
+            else    break;
+        }
+        return root;
+    }
+}
