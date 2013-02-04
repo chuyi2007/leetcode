@@ -24,9 +24,6 @@ public class Solution {
         for(Integer i: tmp) result.add(i);
         return result;
     }
-<<<<<<< Updated upstream
-}
-=======
 
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         // Start typing your Java solution below
@@ -49,5 +46,26 @@ public class Solution {
     }
 }
 
-    
->>>>>>> Stashed changes
+public class Solution {
+    public ArrayList<Integer> inorderTraversal(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        Stack<TreeNode> st = new Stack<TreeNode>();
+        st.push(root);
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        while(!st.isEmpty() && st.peek() != null){
+            TreeNode node = st.pop();
+            if(node.right != null)
+                st.push(node.right);
+            if(node.left != null){
+                st.push(node);
+                st.push(node.left);
+            }
+            else
+                result.add(node.val);
+            node.left = null;
+            node.right = null;
+        }
+        return result;
+    }
+}

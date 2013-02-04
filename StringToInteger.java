@@ -3,20 +3,15 @@ public class Solution {
         // Start typing your Java solution below
         // DO NOT write main() function
         boolean flag = true;
-        for(int i = 0; i < str.length(); ++i)
-            if(str.charAt(i) != ' '){
-                str = str.substring(i);
-                break;
-            }
+        str = str.trim();
         if(str.length() < 1)    return 0;
         if(str.charAt(0) == '-'){
             flag = false;
             str = str.substring(1);
         }
-        else if(str.charAt(0) == '+'){
-            flag = true;
+        else if(str.charAt(0) == '+')
             str = str.substring(1);
-        }
+
         int result = 0;
         for(int i = 0; i < str.length(); ++i){
             if(str.charAt(i) >= '0' && str.charAt(i) <= '9'){
