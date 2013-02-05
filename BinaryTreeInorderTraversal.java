@@ -7,24 +7,23 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//recursion
 public class Solution {
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        
-    }
-    
-    public ArrayList<Integer> naiveRecursion(TreeNode node){
         ArrayList<Integer> result = new ArrayList<Integer>();
-        if(node == null)    return new ArrayList<Integer>();
-        ArrayList<Integer> tmp = naiveRecursion(node.left);
-        for(Integer i: tmp) result.add(i);
+        if(node == null)
+	    return new ArrayList<Integer>();
+        result.addAll(inorderTraversal(node.left));
         result.add(node.val);
-        tmp = naiveRecursion(node.right);
-        for(Integer i: tmp) result.add(i);
+        result.addAll(inorderTraversal(node.right));
         return result;
     }
+}
 
+//iteration 1
+public class Solution{
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
@@ -46,6 +45,7 @@ public class Solution {
     }
 }
 
+//iteration 2
 public class Solution {
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         // Start typing your Java solution below

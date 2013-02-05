@@ -14,8 +14,7 @@ public class Solution {
         // Start typing your Java solution below
         // DO NOT write main() function
         int carry = 0;
-        ListNode head = null;
-        ListNode cur = null;
+        ListNode head = null, cur = null;
         while(l1 != null || l2 != null){
             int c1 = 0, c2 = 0;
             if(l1 != null){

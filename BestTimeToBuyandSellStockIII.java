@@ -4,26 +4,23 @@ public class Solution {
         // DO NOT write main() function
         int total = 0;
         for(int i = 0; i < prices.length; ++i){
-            int max1 = 0, max2 = 0;
-            int low = Integer.MAX_VALUE;
-            for(int j = 0; j <=i; ++j){
-                if(prices[j] < low)
-                    low = prices[j];
-                int val = prices[j] - low;
-                if(val > max1)
-                    max1 = val;
-            }
-            low = Integer.MAX_VALUE;
-            for(int j = i; j < prices.length; ++j){
-                if(prices[j] < low)
-                    low = prices[j];
-                int val = prices[j] - low;
-                if(val > max2)
-                    max2 = val;
-            }
-            if(total < max1 + max2)
-                total = max1 + max2;
+            int sum = singleTrade(prices, 0, i + 1)
+		+ singleTrade(prices, i, prices.length);
+            if(total < sum)
+                total = sum;
         }
         return total;
+    }
+    public int singleTrade(int[] prices, int start, int end){
+        int max = 0;
+        int low = Integer.MAX_VALUE;
+        for(int j = start; j < end; ++j){
+            if(prices[j] < low)
+                low = prices[j];
+            int val = prices[j] - low;
+            if(val > max)
+                max = val;
+        }
+	return max;
     }
 }

@@ -7,6 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//Use a queue, no recursion, reverse at the last
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
         // Start typing your Java solution below
@@ -19,8 +20,10 @@ public class Solution {
             ArrayList<Integer> result = new ArrayList<Integer>();
             while(nodes.peek() != null){
                 TreeNode current = nodes.pop();
-                if(current.left != null)    tmp.add(current.left);
-                if(current.right != null)   tmp.add(current.right);
+                if(current.left != null)
+		    tmp.add(current.left);
+                if(current.right != null)
+		   tmp.add(current.right);
                 result.add(current.val);
             }
             results.add(result);
@@ -33,6 +36,7 @@ public class Solution {
     }
 }
 
+//Recursion solution
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
         // Start typing your Java solution below

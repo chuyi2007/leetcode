@@ -13,7 +13,8 @@ public class Solution {
                 cur = -1;
             }
         }
-        if(cur != -1)   val += prices[prices.length - 1] - cur;
+        if(cur != -1)
+	    val += prices[prices.length - 1] - cur;
         return val;
     }
 }

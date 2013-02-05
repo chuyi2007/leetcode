@@ -6,13 +6,12 @@ public class Solution {
             return 1;
         else if(n == 2)
             return 2;
-            int fn1 = 1, fn2 = 2, fn3 = 0;
-            for(int i = 3; i <= n; i++){
-                fn3 = fn1 + fn2;
-                fn1 = fn2;
-                fn2 = fn3;
-            }
-            return fn3;
-        
+        int f0 = 1, f1 = 1, f2 = 0;
+        for(int i = 2; i <= n; i++){
+            f2 = f0 + f1;
+            f0 = f1;
+            f1 = f2;
+        }
+        return f2;
     }
 }

@@ -19,8 +19,10 @@ public class Solution {
             ArrayList<Integer> result = new ArrayList<Integer>();
             while(nodes.peek() != null){
                 TreeNode current = nodes.pop();
-                if(current.left != null)    tmp.add(current.left);
-                if(current.right != null)   tmp.add(current.right);
+                if(current.left != null)
+		    tmp.add(current.left);
+                if(current.right != null)
+		    tmp.add(current.right);
                 result.add(current.val);
             }
             results.add(result);
