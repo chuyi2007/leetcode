@@ -21,7 +21,8 @@ public class Solution {
     //back tracking, clean code
     public void naiveBackTracking(String digits, String result, HashMap<Integer, String> map,
     ArrayList<String> results){
-        if(digits.length() == 0)    results.add(result);
+        if(digits.length() == 0)
+	    results.add(result);
         else{
             String s = map.get(digits.charAt(0) - 48);
             for(int i = 0; i < s.length(); ++i)

@@ -3,7 +3,6 @@ public class Solution {
         // Start typing your Java solution below
         // DO NOT write main() function
         //First solution, use O(n) space
-        /*
         int[] min = new int[A.length];
         int marker = A.length - 1;
         for(int i = A.length - 2; i >= 0; --i){
@@ -20,7 +19,11 @@ public class Solution {
                 min[i] = A.length;
         }
         return min[0];
-        */
+    }
+}
+
+public class Solution{
+    public int jump(int[] A){
         //Greedy Algorithm, always jump to max distance
         int max = A[0];
         int min = 1;

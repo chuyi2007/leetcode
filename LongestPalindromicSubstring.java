@@ -7,9 +7,11 @@ public class Solution {
         String max = "";
         for(int i = 0; i < s.length(); ++i){
             String l = findLongest(i - 1, i + 1, s);
-            if(max.length() < l.length()) max = l;
+            if(max.length() < l.length())
+		max = l;
             l = findLongest(i, i+1, s);
-            if(max.length() < l.length())   max = l;
+            if(max.length() < l.length())
+ 	        max = l;
         }
         return max;
     }
@@ -20,7 +22,8 @@ public class Solution {
                 --j;
                 ++k;
             }
-            else    break;
+            else
+	        break;
         return s.substring(j+1, k);    
     }
 }

@@ -9,7 +9,8 @@ public class Solution {
                 start = i + 1;
                 break;
             }
-            if(i == 0)  start = 0;
+            if(i == 0)
+		start = 0;
         }
         return s.length() - start;
     }
@@ -21,12 +22,12 @@ public class Solution {
         // DO NOT write main() function
         int end = s.length() - 1;
         while(end >= 0 && s.charAt(end) == ' ')
-            end--;
+            --end;
         if(end < 0)
             return 0;
         int start = end;
         while(start >= 0 && s.charAt(start) != ' ')
-            start--;
+            --start;
         return end - start;
     }
 }
