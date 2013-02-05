@@ -39,6 +39,7 @@ public class Solution {
             midTree.right = sortedListToBST(head, mid + 1, max);
             return midTree;
         }
-        else    return null;
+        else
+	    return null;
     }
 }

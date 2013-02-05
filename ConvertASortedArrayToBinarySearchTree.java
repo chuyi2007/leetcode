@@ -22,6 +22,7 @@ public class Solution {
             midTree.right = sortedArrayToBST(num, mid + 1, max);
             return midTree;
         }
-        else    return null;
+        else
+	    return null;
     }
 }
