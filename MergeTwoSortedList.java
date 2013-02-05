@@ -9,6 +9,7 @@
  *     }
  * }
  */
+//Without sentry
 public class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         // Start typing your Java solution below
@@ -63,6 +64,7 @@ public class Solution {
  *     }
  * }
  */
+//Use a sentry
 public class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         // Start typing your Java solution below

@@ -11,20 +11,11 @@ public class Solution {
     public int maxDepth(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        Count max = new Count();
-        max.val = 0;
-        depthSearch(root, max, 0);
-        return max.val;
-    }
-    
-    public void depthSearch(TreeNode root, Count max, int count){
-        if(root == null){
-            if(count > max.val)
-                max.val = count;
-        }
-        else{
-            depthSearch(root.left, max, count + 1);
-            depthSearch(root.right, max, count + 1);
-        }
+        if(root == null)
+            return 0;
+        else if(root.left == null && root.right == null)
+            return 1;
+        else
+            return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 }

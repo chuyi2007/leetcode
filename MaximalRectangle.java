@@ -1,3 +1,4 @@
+//O(N)
 public class Solution {
     public int maximalRectangle(char[][] matrix) {
         // Start typing your Java solution below
@@ -45,6 +46,7 @@ public class Solution {
     }
 }
 
+//O(n^2)
 public class Solution {
     public int maximalRectangle(char[][] matrix) {
         // Start typing your Java solution below

@@ -7,6 +7,7 @@
  * }
  */
 public class Solution {
+    //level order use extra space
     public void connect(TreeLinkNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
@@ -26,7 +27,8 @@ public class Solution {
             count *= 2;
         }
     }
-	public void connect(TreeLinkNode root) {
+    //no extra space
+    public void connect(TreeLinkNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
         if(root != null){

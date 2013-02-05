@@ -9,6 +9,7 @@
  *     }
  * }
  */
+//No sentry
 public class Solution {
     public ListNode partition(ListNode head, int x) {
         // Start typing your Java solution below
@@ -60,6 +61,7 @@ public class Solution {
  *     }
  * }
  */
+//Use a sentry
 public class Solution {
     public ListNode partition(ListNode head, int x) {
         // Start typing your Java solution below
