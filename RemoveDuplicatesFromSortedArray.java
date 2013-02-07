@@ -21,7 +21,8 @@ public class Solution {
         return size;
         */
         int j = 0, n = A.length;
-        if(n < 1)   return 0;
+        if(n < 1)
+	    return 0;
         for(int i = 0; i < n;){
             while(i < n && A[i] == A[j])
                 ++i;
