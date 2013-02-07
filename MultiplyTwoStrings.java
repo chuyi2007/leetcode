@@ -2,44 +2,27 @@ public class Solution {
     public String multiply(String num1, String num2) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        String l, s;
-        if(num1.length() > num2.length()){
-            l = num1;
-            s = num2;
-        }
-        else{
-            l = num2;
-            s = num1;
-        }
-        int preCarry = 0;
-        int[] pro = new int[l.length() + s.length()];
-        for(int i = s.length() - 1; i >= 0; --i){
-            preCarry = 0;
-            int a = s.charAt(i) - 48;
-            for(int j = l.length() - 1; j >= 0; --j){
-                int b = l.charAt(j) - 48;
-                int sum = a * b + preCarry;
-                pro[i + j + 1] += sum % 10;
-                preCarry = sum/10;
+        int[] product = new int[num1.length() + num2.length()];
+        //in case overflow
+        if(num1.equals("0") || num2.equals("0"))
+            return "0";
+        for(int i = num1.length() - 1; i >= 0; --i){
+            for(int j = num2.length() - 1; j >= 0; --j){
+                int a = num1.charAt(i) - 48, b = num2.charAt(j) - 48;
+                product[i + j + 1] += a * b;
             }
-            pro[i] = preCarry;
         }
-        preCarry = 0;
-        for(int i = pro.length - 1; i >= 0; --i){
-            int sum = pro[i] + preCarry;
-            pro[i] = sum % 10;
-            preCarry = sum / 10;
+
+        int carry = 0;
+        StringBuffer sb = new StringBuffer();
+        for(int i = product.length - 1; i >= 1; --i){
+            int sum = product[i] + carry;
+            product[i] = sum % 10;
+            carry = sum / 10;
+            sb.append(product[i]);
         }
-        
-        String result = "";
-        if(pro[0] != 0)
-            result += String.valueOf(pro[0]);
-        boolean zeroFlag = true;
-        for(int i = 1; i < pro.length; ++i){
-            if(pro[i] > 0)
-                zeroFlag = false;
-            result += String.valueOf(pro[i]);
-        }
-        return zeroFlag?"0":result;
+        if(carry != 0)
+            sb.append(carry);
+        return sb.reverse().toString();
     }
 }

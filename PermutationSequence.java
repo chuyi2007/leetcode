@@ -69,7 +69,6 @@ public class Solution {
                 num[i] = i + 1;
             return;
         }
-        int mid = -1;
         for(int i = num.length - 1; i > pivot; --i){
             if(num[i] > num[pivot]){
                 swap(num, i, pivot);

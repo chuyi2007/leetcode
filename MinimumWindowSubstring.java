@@ -1,86 +1,83 @@
+//O(N) solution
 public class Solution {
     public String minWindow(String S, String T) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        int sl = S.length();
-        int tl = T.length();
+        int min = S.length() + 1;
+        int[] match = new int[256];
+        int[] target = new int[256];
         
-        int[] knownTable = new int[256];
-        int[] searchTable = new int[256];
+        for(int i = 0; i < T.length(); ++i){
+            ++target[(int)T.charAt(i)];
+        }
         
-        for(int i = 0; i < T.length(); ++i)
-            ++knownTable[(int)T.charAt(i)];
-        int count = 0;
-        int min = Integer.MAX_VALUE;
-        String result = "";
-        // i as start pointer, j as end pointer, i < j
-        for(int i = 0, j = 0; j <= sl;){
-            //move j to right if not found a substring in S contains T
-            if(count != tl && j != sl){
-                char c = S.charAt(j);
-                if(T.contains(String.valueOf(c))){
-                    ++searchTable[(int)c];
-                    if(searchTable[(int)c] <= knownTable[(int)c])
-                        ++count;
-                    if(count == tl){
-                        int len = j - i + 1;
-                        if(min > len){
-                            min = len;
-                            result = S.substring(i, j + 1);
-                        }
-                    }
+        int count = T.length();
+        int start = -1, end = -1;
+        //i as start index, j as end index
+        for(int i = 0, j = 0; i <= j && j <= S.length();){
+            if(count > 0){
+                if(j == S.length())
+                    break;
+                char ce = S.charAt(j);
+                if(T.contains(String.valueOf(ce))){
+                    ++match[(int)ce];
+                    if(match[(int)ce] <= target[(int)ce])
+                        --count;
                 }
                 ++j;
             }
-            //move i to right if found a substring in S contains T
-            else{
-                char c = S.charAt(i);
-                if(count == tl){
-                    int len = j - i;
-                    if(min > len){
-                        min = len;
-                        result = S.substring(i, j);
-                    }
+            
+            if(count == 0){
+                char cs = S.charAt(i);
+                int len = j - i;
+                if(len < min){
+                    min = len;
+                    start = i;
+                    end = j;
                 }
-                if(T.contains(String.valueOf(c))){
-                    --searchTable[(int)c];
-                    if(searchTable[(int)c] < knownTable[(int)c])
-                        --count;
+                if(T.contains(String.valueOf(cs))){
+                    --match[(int)cs];
+                    if(match[(int)cs] < target[(int)cs])
+                        ++count;
                 }
                 ++i;
-                
-                //important to avoid infinite loop
-                if(i > j - tl)
-                    break;
             }
         }
-        return result;
+        if(start == -1)
+            return "";
+        else
+            return S.substring(start, end);
     }
-    
-    //Can not pass large test
-    public String naiveSearch(String S, String T){
-        int sl = S.length();
-        int tl = T.length();
-        int min = Integer.MAX_VALUE;
-        String result = "";
-        for(int i = 0; i < sl; i++){
-            for(int j = i + tl - 1; j < sl; j++){
-                String tmpT = T;
-                for(int k = i; k <= j; k++){
-                    char c = S.charAt(k);
-                    if(tmpT.contains(String.valueOf(c))){
-                        int start = tmpT.indexOf(c);
-                        tmpT = tmpT.substring(0, start) + tmpT.substring(start + 1);
-                    }
+}
+
+//O(N * N * M) solution
+public class Solution {
+    public String minWindow(String S, String T) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int min = S.length() + 1;
+        int start = -1, end = -1;
+        for(int i = 0; i < S.length(); ++i){
+            for(int j = i + T.length(); j <= S.length(); ++j){
+                String tmp = new String(T);
+                for(int k = i; k < j; ++k){
+                    String cur = S.substring(k, k + 1);
+                    if(tmp.contains(cur))
+                        tmp = tmp.substring(0, tmp.indexOf(cur)) 
+                        + tmp.substring(tmp.indexOf(cur) + 1);
                 }
-                if(tmpT.length() == 0){
-                    if(min > j - i + 1){
-                        result = S.substring(i,j + 1);
-                        min = j - i + 1;
-                    }
+                if(tmp.length() == 0 && j - i < min){
+                    min = j - i;
+                    start = i;
+                    end = j;
+                    //if found one, no need to increase j, because must be larger
+                    break;
                 }
             }
         }
-        return result;
+        if(start == -1)
+            return "";
+        else
+            return S.substring(start, end);
     }
 }

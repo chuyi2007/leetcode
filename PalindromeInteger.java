@@ -1,8 +1,8 @@
+//Compare number by number, never overflow, in constant space
 public class Solution {
     public boolean isPalindrome(int x) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        //Compare number by number, never overflow, in constant space
         if(x < 0)   return false;
         int div = 1;
         //find largest divisor
@@ -17,9 +17,11 @@ public class Solution {
         }
         return true;
     }
-    
-    //Reverse first, then compare, might overflow
-    public boolean reverseIntMain(int x){
+}
+
+//Reverse first, then compare, might overflow
+public class Solution{
+    public boolean isPalindrome(int x){
         if(x < 0)
             return false;
         int y = reverseInt(x, 0);
@@ -27,7 +29,6 @@ public class Solution {
             return true;
         return false;
     }
-    
     public int reverseInt(int x, int remain){
         if(x / 10 == 0)
             return remain * 10 + x;
@@ -36,13 +37,15 @@ public class Solution {
             return reverseInt(x / 10, remain);
         }
     }
-    
-    //Easy, short, use Extra Space
-    public boolean convertToString(int x){
+}
+
+//Easy, short, use Extra Space
+public class Solution{
+    public boolean isPalindrome(int x) {
         String xs = String.valueOf(x);
         for(int i = 0, j = xs.length() - 1; i < j; ++i, --j)
             if(xs.charAt(i) != xs.charAt(j))
                 return false;
         return true;
-    }
+    }	
 }
