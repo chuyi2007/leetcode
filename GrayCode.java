@@ -1,3 +1,17 @@
+//From wiki
+public class Solution {
+    public ArrayList<Integer> grayCode(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<Integer> results = new ArrayList<Integer>();
+        int total = (int) Math.pow(2,n);
+        for(int i = 0; i < total; ++i)
+            results.add((i >> 1) ^ i);
+        return results;
+    }
+}
+
+//Totally forgot how to do this
 public class Solution {
     public ArrayList<Integer> grayCode(int n) {
         // Start typing your Java solution below
@@ -9,7 +23,7 @@ public class Solution {
         for(int i = 1; i < total; ++i){
             int previous = results.get(i - 1);
             if(i % 2 != 0){
-                int next = (previous%2 == 0)?previous + 1: previous - 1;
+                int next = (previous%2 == 0)?(previous + 1):(previous - 1);
                 results.add(next);
             }
             else{
@@ -20,7 +34,7 @@ public class Solution {
                     ++count;
                 }
                 int q = (int)Math.pow(2, count);
-                int d = ((next >> 1) % 2 == 0)?next + 2: next - 2;
+                int d = ((next >> 1) % 2 == 0)?(next + 2):(next - 2);
                 next = d * q + previous % q;
                 results.add(next);
             }
