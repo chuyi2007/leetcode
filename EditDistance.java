@@ -6,7 +6,7 @@ public class Solution {
         return dynamicLevenshtein(word1, word2);
     }
     
-    //dyanamic programming
+    //dyanamic programming, O(M*N)
     public int dynamicLevenshtein(String word1, String word2){
         int len1 = word1.length(), len2 = word2.length(), cost;
         int[][] table = new int[len1 + 1][len2 + 1];

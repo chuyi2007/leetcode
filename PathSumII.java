@@ -23,8 +23,7 @@ public class Solution {
         if(root != null){
             if(root.left == null && root.right == null){
                 if(sum == root.val){
-                    ArrayList<Integer> tmp = new ArrayList<Integer>();
-                    tmp.addAll(result);
+                    ArrayList<Integer> tmp = new ArrayList<Integer>(result);
                     tmp.add(root.val);
                     results.add(tmp);
                 }

@@ -1,3 +1,4 @@
+//O(N^4)
 public class Solution {
     //Can not pass the large test case
     public boolean isScramble(String s1, String s2) {

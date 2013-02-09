@@ -1,3 +1,4 @@
+//O(N)
 public class Solution {
     public ListNode rotateRight(ListNode head, int n) {
         // Start typing your Java solution below

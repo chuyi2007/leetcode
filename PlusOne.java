@@ -1,3 +1,4 @@
+//O(N)
 public class Solution {
     public int[] plusOne(int[] digits) {
         // Start typing your Java solution below

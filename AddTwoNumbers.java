@@ -9,6 +9,7 @@
  *     }
  * }
  */
+//O(N^2), N is the smallest length between l1 and l2
 public class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         // Start typing your Java solution below

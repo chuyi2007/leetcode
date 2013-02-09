@@ -7,6 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//O(N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
         // Start typing your Java solution below

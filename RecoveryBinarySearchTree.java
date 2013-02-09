@@ -33,7 +33,7 @@ public class Solution {
         }
     }
     
-    //O(N) solution
+    //O(N) space solution
     public void walkThrough(TreeNode root){
         ArrayList<TreeNode> inOrder = new ArrayList<TreeNode>();
         inOrderTraverse(root, inOrder);

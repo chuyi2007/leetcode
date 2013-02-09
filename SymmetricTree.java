@@ -8,6 +8,7 @@
  * }
  */
 public class Solution {
+    //O(N)
     public boolean isSymmetric(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
@@ -39,6 +40,7 @@ public class Solution {
         return true;
     }
     
+    //O(N)
     public boolean recursion(TreeNode n1, TreeNode n2){
         if(n1 == null && n2 == null)
             return true;

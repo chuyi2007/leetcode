@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//recursion
+//recursion, O(N)
 public class Solution {
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         // Start typing your Java solution below
@@ -22,7 +22,7 @@ public class Solution {
     }
 }
 
-//iteration 1
+//iteration 1, O(N)
 public class Solution{
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         // Start typing your Java solution below
@@ -45,7 +45,7 @@ public class Solution{
     }
 }
 
-//iteration 2
+//iteration 2, O(N)
 public class Solution {
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         // Start typing your Java solution below

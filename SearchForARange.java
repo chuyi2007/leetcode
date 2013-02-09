@@ -17,7 +17,8 @@ public class Solution {
         int index = -1;
         while(max >= min){
             int mid = (max + min) / 2;
-            if(A[mid] > target) max = mid - 1;
+            if(A[mid] > target) 
+		max = mid - 1;
             else{
                 index = mid;
                 min = mid + 1;

@@ -7,7 +7,7 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-import java.util.Collections;
+//O(N)
 public class Solution {
     public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
         // Start typing your Java solution below

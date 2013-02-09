@@ -1,3 +1,4 @@
+//O(N), N is the largest length of a and b
 public class Solution {
     public String addBinary(String a, String b) {
         // Start typing your Java solution below

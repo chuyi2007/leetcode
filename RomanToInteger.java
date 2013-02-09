@@ -1,3 +1,4 @@
+//O(N)
 public class Solution {
     public int romanToInt(String s) {
         // Start typing your Java solution below

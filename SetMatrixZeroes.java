@@ -1,3 +1,4 @@
+//O(M*N)
 public class Solution {
     public void setZeroes(int[][] matrix) {
         // Start typing your Java solution below
@@ -12,13 +13,17 @@ public class Solution {
                     i = m;
                     j = n;
                 }
-        if(row == -1)   return;
+	//not found
+        if(row == -1)
+	    return;
+	//set row and col as zero flags
         for(int i = 0; i < m; ++i)
             for(int j = 0; j < n; ++j)
                 if(matrix[i][j] == 0){
                     matrix[row][j] = 0;
                     matrix[i][col] = 0;
                 }
+	//zeroes of matrix
         for(int i = 0; i < m; ++i)
             if(i != row && matrix[i][col] == 0){
                 for(int j = 0; j < n; ++j)

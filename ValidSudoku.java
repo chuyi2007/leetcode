@@ -1,4 +1,5 @@
 public class Solution {
+    //O(N^2)
     public boolean isValidSudoku(char[][] board) {
         // Start typing your Java solution below
         // DO NOT write main() function

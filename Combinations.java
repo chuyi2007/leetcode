@@ -1,4 +1,4 @@
-//backTracking solution
+//backTracking solution, O(N!/K!)
 public class Solution {
     public ArrayList<ArrayList<Integer>> combine(int n, int k) {
         // Start typing your Java solution below
@@ -22,7 +22,7 @@ public class Solution {
     }
 }
 
-//recursion
+//recursion, O(N!/K!)
 public class Solution {
     public ArrayList<ArrayList<Integer>> combine(int n, int k) {
         // Start typing your Java solution below

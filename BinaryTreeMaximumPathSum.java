@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Back Tracking max, Recursion with return value of sum
+//Back Tracking max, Recursion with return value of sum, O(N)
 public class Solution {
     public int maxPathSum(TreeNode root) {
         // Start typing your Java solution below

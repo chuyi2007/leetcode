@@ -13,6 +13,37 @@ public class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {
         // Start typing your Java solution below
         // DO NOT write main() function
+        ListNode sen = new ListNode(0);
+        sen.next = head;
+        ListNode prepre = sen, pre = head, cur = head.next, next = null;
+        int index = 1;
+        while(true){
+            if(index < m){
+                prepre = pre;
+                pre = cur;
+                cur = cur.next;
+            }
+            else if(index >= m && index < n){
+                next = cur.next;
+                cur.next = pre;
+                pre = cur;
+                cur = next;
+            }
+            else if(index == n){
+                prepre.next.next = cur;
+                prepre.next = pre;
+                break;
+            }
+            ++index;
+        }
+        return sen.next;
+    }
+}
+
+public class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
         //my solution
         if(m == n)
             return head;

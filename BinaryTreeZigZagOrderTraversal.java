@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-
+//O(N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
         // Start typing your Java solution below

@@ -1,3 +1,4 @@
+//O(N^3)
 public class Solution {
     public ArrayList<String> restoreIpAddresses(String s) {
         // Start typing your Java solution below

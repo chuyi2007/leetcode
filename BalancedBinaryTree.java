@@ -7,6 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//O(N^2)
 public class Solution {
     public boolean isBalanced(TreeNode root) {
         // Start typing your Java solution below

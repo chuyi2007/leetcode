@@ -1,3 +1,4 @@
+//O(N^2)
 public class Solution {
     public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
         // Start typing your Java solution below

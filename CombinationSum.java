@@ -1,3 +1,4 @@
+//O(N^k), where target is N, k is number of candidates
 public class Solution {
     public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
         // Start typing your Java solution below

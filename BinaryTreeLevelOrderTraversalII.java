@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Use a queue, no recursion, reverse at the last
+//Use a queue, no recursion, reverse at the last, O(N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
         // Start typing your Java solution below
@@ -36,7 +36,7 @@ public class Solution {
     }
 }
 
-//Recursion solution
+//Recursion solution, O(N^2)
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
         // Start typing your Java solution below

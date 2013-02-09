@@ -1,3 +1,4 @@
+//O(N^2)
 public class Solution {
     public int minPathSum(int[][] grid) {
         // Start typing your Java solution below

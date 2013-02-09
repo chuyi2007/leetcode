@@ -1,4 +1,4 @@
-//Dynamic Programming
+//Dynamic Programming, O(N)
 public class Solution {
     public int numDecodings(String s) {
         // Start typing your Java solution below
@@ -22,7 +22,7 @@ public class Solution {
         return f3;
     }
 }
-//Recursive
+//Recursive, O(N^2)
 public class Solution {
     public int numDecodings(String s) {
         // Start typing your Java solution below

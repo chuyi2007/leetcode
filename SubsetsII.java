@@ -1,4 +1,4 @@
-//BackTrack Solution
+//BackTrack Solution, O(2^N), o(N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num) {
         // Start typing your Java solution below
@@ -27,7 +27,7 @@ public class Solution {
     }
 }
 
-//Recursion with extra space (HashSet)
+//Recursion with extra space (HashSet), O(2^N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num) {
         // Start typing your Java solution below

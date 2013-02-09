@@ -1,5 +1,5 @@
 public class Solution {
-    //binary search
+    //binary search O(log(M*N))
     public boolean searchMatrix(int[][] matrix, int target) {
         // Start typing your Java solution below
         // DO NOT write main() function
@@ -11,13 +11,17 @@ public class Solution {
             int mid = (max + min) / 2;
             int i = mid / n;
             int j = mid % n;
-            if(matrix[i][j] == target)  return true;
-            else if(matrix[i][j] < target)   min = mid + 1;
-            else max = mid - 1;
+            if(matrix[i][j] == target)  
+		return true;
+            else if(matrix[i][j] < target)
+		min = mid + 1;
+            else
+		max = mid - 1;
         }
         return false;
     }
     
+    //O(M+N)
     public boolean searchMatrix(int[][] matrix, int target) {
         // Start typing your Java solution below
         // DO NOT write main() function

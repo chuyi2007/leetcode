@@ -1,3 +1,4 @@
+//O(N^2), o(N)
 public class Solution {
     public Integer threeSumClosest(int[] num, int target) {
         // Start typing your Java solution below

@@ -1,3 +1,4 @@
+//O(N^2)
 public class Solution {
     public void rotate(int[][] matrix) {
         // Start typing your Java solution below

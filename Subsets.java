@@ -1,4 +1,4 @@
-//BackTracking Solution
+//BackTracking Solution, O(2^N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> subsets(int[] S) {
         // Start typing your Java solution below
@@ -11,21 +11,22 @@ public class Solution {
         return results;
     }
     
-    public void subsets(int[] S, int index, ArrayList<Integer> bt,
-                        ArrayList<ArrayList<Integer>> results){
+    public void subsets(int[] S, int level, ArrayList<Integer> bt, 
+    ArrayList<ArrayList<Integer>> results){
         ArrayList<Integer> result = new ArrayList<Integer>();
-        for(int i = 1; i < bt.size(); ++i)
+        for(int i = 1; i < bt.size(); ++i){
             result.add(S[bt.get(i)]);
+        }
         results.add(result);
-        for(int i = bt.get(index) + 1; i < S.length; ++i){
+        for(int i = bt.get(level) + 1; i < S.length; ++i){
             bt.add(i);
-            subsets(S, index + 1, bt, results);
+            subsets(S, level + 1, bt, results);
             bt.remove(bt.size() - 1);
         }
     }
 }
 
-//Recursion Solution
+//Recursion Solution, O(2^N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> subsets(int[] S) {
         // Start typing your Java solution below

@@ -1,3 +1,4 @@
+//O(N)
 public class Solution {
     public int maxArea(int[] height) {
         // Start typing your Java solution below

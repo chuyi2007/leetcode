@@ -1,3 +1,4 @@
+//O(N^3), o(N^2)
 public class Solution {
     public ArrayList<ArrayList<Integer>> fourSum(int[] num, int target) {
         // Start typing your Java solution below

@@ -7,6 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//O(N)
 public class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         // Start typing your Java solution below

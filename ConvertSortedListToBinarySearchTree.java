@@ -15,6 +15,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//O(N)
 public class Solution {
     public TreeNode sortedListToBST(ListNode head) {
         // Start typing your Java solution below
@@ -25,21 +26,22 @@ public class Solution {
             ++size;
             cur = cur.next;
         }
-        return sortedListToBST(head, 0, size - 1);
+        ListNode[] wrapper = new ListNode[1];
+        wrapper[0] = head;
+        return sortedListToBST(wrapper, 0, size - 1);
     }
     
-    public TreeNode sortedListToBST(ListNode head, int min, int max){
+    public TreeNode sortedListToBST(ListNode[] head, int min, int max){
         if(min <= max){
-            //avoids overflow
-            int mid = min + (max - min) / 2;
+            int mid = (max + min) / 2;
             TreeNode leftTree = sortedListToBST(head, min, mid - 1);
-            TreeNode midTree = new TreeNode(head.val);
-            head = head.next;
+            TreeNode midTree = new TreeNode(head[0].val);
+            head[0] = head[0].next;
             midTree.left = leftTree;
             midTree.right = sortedListToBST(head, mid + 1, max);
             return midTree;
         }
         else
-	    return null;
+            return null;
     }
 }

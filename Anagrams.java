@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.Arrays;
-import java.util.Iterator;
+//O(N), N is the length of strs
 public class Solution {
     public ArrayList<String> anagrams(String[] strs) {
         // Start typing your Java solution below

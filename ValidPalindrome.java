@@ -1,3 +1,4 @@
+//O(N)
 public class Solution {
     public boolean isPalindrome(String s) {
         // Start typing your Java solution below

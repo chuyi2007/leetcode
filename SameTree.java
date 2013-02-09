@@ -7,6 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//O(N)
 public class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         // Start typing your Java solution below

@@ -1,4 +1,5 @@
 public class Solution {
+    //O(N), N is number of words
     public ArrayList<String> fullJustify(String[] words, int L) {
         // Start typing your Java solution below
         // DO NOT write main() function

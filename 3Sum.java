@@ -1,4 +1,4 @@
-//Do not use extra space
+//Do not use extra space, O(N^2), o(N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
         // Start typing your Java solution below
@@ -35,7 +35,7 @@ public class Solution {
     }
 }
 
-//Use Extra Space (HashSet)
+//Use Extra Space (HashSet), O(N^2)
 public class Solution {
     public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
         // Start typing your Java solution below

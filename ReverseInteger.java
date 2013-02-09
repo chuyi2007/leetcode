@@ -10,15 +10,23 @@ public class Solution {
             x = x/10;
         }
         return flag?result:-result;
-        //Use extra space to save as a string
-        /*
-        boolean flag = x < 0?false:true;
-        String s = String.valueOf(Math.abs(x));
-        String r = "";
-        for(int i = s.length() - 1; i >= 0; --i)
-            r += String.valueOf(s.charAt(i));
-        int result = Integer.parseInt(r);
-        return flag?result:-result;
-        */
+    }
+}
+
+public class Solution {
+    public int reverse(int x) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        return reverseHelper(x, 0);
+    }
+    
+    public int reverseHelper(int x, int y){
+        if(x == 0)
+            return y;
+        else{
+            y = y * 10 + x % 10;
+            x = x / 10;
+            return reverseHelper(x, y);
+        }
     }
 }

@@ -5,6 +5,7 @@ public class Solution {
         return divideAndConquer(A, 0, A.length - 1);
     }
     
+    //O(N)
     public int ONmethod(int[] A){
        int max = Integer.MIN_VALUE;
         int sum = 0;
@@ -17,7 +18,7 @@ public class Solution {
         }
         return max;
     }
-    
+    //O(N^2)
     public int divideAndConquer(int[] A, int left, int right){
         if(left > right)
             return 0;
