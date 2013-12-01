@@ -22,22 +22,27 @@ public class Solution {
     }
 }
 
-public class Solution{
-    public int jump(int[] A){
-        //Greedy Algorithm, always jump to max distance
-        int max = A[0];
-        int min = 1;
+public class Solution {
+    public int jump(int[] A) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int jump = 0;
         int step = 0;
-        if(A.length == 1)   return 0;
-        while(max < A.length - 1){
-            int m = max;
-            for(int i = min; i <= max; ++i)
-                if(m < A[i] + i)
-                    m = A[i] + i;
-            min = max + 1;
-            max = m;
+        while(jump < A.length - 1){
+            int max = 0;
+            int dist = jump + A[jump];
+            for(int i = jump + 1; i <= dist; ++i){
+                if(i >= A.length - 1){
+                    jump = i;
+                    break;
+                }
+                if(max < i + A[i]){
+                    max = i + A[i];
+                    jump = i;
+                }
+            }
             ++step;
         }
-        return step + 1;
+        return step;
     }
 }
