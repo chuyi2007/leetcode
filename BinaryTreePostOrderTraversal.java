@@ -23,10 +23,12 @@ public class Solution {
             }
             else {
                 st.push(node);
-                if (node.right != null)
+                if (node.right != null) {
                     st.push(node.right);
-                if (node.left != null)
+		}
+                if (node.left != null) {
                     st.push(node.left);
+		}
             }
             node.left = null;
             node.right = null;

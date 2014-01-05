@@ -1,35 +1,28 @@
-//O(N)
 public class Solution {
     public boolean isPalindrome(String s) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int size = s.length();
-        if(size == 0)
-            return true;
         s = s.toLowerCase();
-        boolean result = true;
-        for(int i = 0, j = size - 1; i <= j;){
-            while(i < size - 1 && !validChar(s.charAt(i)))
+        for (int i = 0, j = s.length() - 1; i <= j;) {
+            if (!checkCharacter(s.charAt(i))) {
                 ++i;
-            while(j > 0 && !validChar(s.charAt(j)))
+            } 
+            else if (!checkCharacter(s.charAt(j))) {
                 --j;
-            if(i > j)
-                break;
-            if(s.charAt(i) != s.charAt(j)){
-                result = false;
-                break;
             }
-            ++i;
-            --j;
+            else if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+            else {
+                ++i;
+                --j;
+            }
         }
-        return result;
+        return true;
     }
     
-    public boolean validChar(char c){
-        if(c >= 'a' && c <= 'z' || c >= '0' && c <= '9'){
+    public boolean checkCharacter(char a) {
+        if (a >= '0' && a <= '9' || a >= 'a' && a <= 'z') {
             return true;
-        } 
-        else
-            return false;
+        }
+        return false;
     }
 }

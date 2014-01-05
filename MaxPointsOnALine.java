@@ -1,3 +1,4 @@
+//Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
 /**
  * Definition for a point.
  * class Point {
@@ -7,8 +8,7 @@
  *     Point(int a, int b) { x = a; y = b; }
  * }
  */
-public class Solution {
-    
+public class Solution {  
     public int maxPoints(Point[] points) {
         // IMPORTANT: Please reset any member data you declared, as
         // the same Solution instance will be reused for each test case.

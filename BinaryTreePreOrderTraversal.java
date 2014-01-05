@@ -22,10 +22,12 @@ public class Solution {
                 sortedList.add(node.val);
             }
             else {
-                if (node.right != null)
+                if (node.right != null) {
                     st.push(node.right);
-                if (node.left != null)
+		}
+                if (node.left != null) {
                     st.push(node.left);
+		}
                 st.push(node);
             }
             node.left = null;
