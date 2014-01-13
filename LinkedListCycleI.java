@@ -17,8 +17,9 @@ public class Solution {
         while (faster != null && faster.next != null && slower != null) {
             faster = faster.next.next;
             slower = slower.next;
-            if (faster == slower && faster != null)
+            if (faster == slower && faster != null) {
                 return true;
+            }
         }
         return false;
     }
@@ -30,8 +31,9 @@ public class Solution {
         ListNode cur = head;
         Set<ListNode> set = new HashSet<ListNode>();
         while (cur != null) {
-            if (set.contains(cur))
+            if (set.contains(cur)) {
                 return true;
+            }
             set.add(cur);
             cur = cur.next;
         }

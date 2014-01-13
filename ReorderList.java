@@ -20,8 +20,9 @@ public class Solution {
             ++len;
         }
         
-        if (len == 1)
+        if (len == 1) {
             return;
+        }
         cur = head;
         int mid = (int)Math.ceil(len / 2.0);
         int index = 0;

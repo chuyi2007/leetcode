@@ -23,8 +23,9 @@ public class Solution {
                 break;
             }
         }
-        if (!flag)
+        if (!flag) {
             return null;
+        }
         while (true) {
             if (head != slower) {
                 head = head.next;

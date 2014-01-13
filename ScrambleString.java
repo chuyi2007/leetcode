@@ -1,34 +1,36 @@
-//O(N^4)
 public class Solution {
-    //Can not pass the large test case
     public boolean isScramble(String s1, String s2) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int len = s1.length();
-        if(len == 1)
-            return s1.equals(s2);
-        for(int i = 1; i < len; ++i){
-            String a1 = s1.substring(0, i);
-            String a2 = s2.substring(0, i);
-            
-            String b1 = s1.substring(i, len);
-            String b2 = s2.substring(i, len);
-            
-            String x1 = s1.substring(0, len - i);
-            String x2 = s2.substring(0, len - i);
-            
-            String y1 = s1.substring(len - i, len);
-            String y2 = s2.substring(len - i, len);
-            
-            if(isScramble(a1, a2) && isScramble(b1, b2))
-                return true;
-            if(isScramble(a1, y2) && isScramble(b1, x2))
-                return true;
-            if(isScramble(x1, b2) && isScramble(y1, a2))
-                return true;
-            if(isScramble(x1, x2) && isScramble(y1, y2))
-                return true;
+        int n = s1.length();
+        if (n == 0) {
+            return true;
         }
+        char[] c1 = s1.toCharArray();
+        char[] c2 = s2.toCharArray();
+        Arrays.sort(c1);
+        Arrays.sort(c2);
+        if (!(new String(c1)).equals(new String(c2))) {
+            return false;
+        }
+        else if (n == 1) {
+            return true;
+        }
+        
+        for (int i = 1; i < n; ++i) {
+            String a1 = s1.substring(0, i);
+            String b1 = s1.substring(i, n);
+            String a2 = s2.substring(0, i);
+            String b2 = s2.substring(i, n);
+            String x1 = s2.substring(0, n - i);
+            String y1 = s2.substring(n - i, n);
+            
+            if (isScramble(a1, a2) && isScramble(b1, b2)) {
+                return true;
+            }
+            else if (isScramble(a1, y1) && isScramble(b1, x1)) {
+                return true;
+            }
+        }
+        
         return false;
     }
 }
