@@ -11,17 +11,12 @@
  */
 public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         ListNode cur = head;
-        ListNode pre = null;
-        while(cur != null){
-            if(pre != null && pre.val == cur.val){
-                pre.next = cur.next;
-                cur = cur.next;
+        while (cur != null && cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
             }
-            else{
-                pre = cur;
+            else {
                 cur = cur.next;
             }
         }

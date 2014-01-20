@@ -6,20 +6,17 @@
  *     TreeLinkNode(int x) { val = x; }
  * }
  */
-//constant space solution
 public class Solution {
     public void connect(TreeLinkNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        if(root != null){
-            if(root.left != null && root.right != null){
+        if (root != null) {
+            if (root.left != null && root.right != null) {
                 root.left.next = root.right;
-                root.right.next = connectToRight(root.next);
             }
-            else if(root.left != null){
+            else if (root.left != null) {
                 root.left.next = connectToRight(root.next);
             }
-            else if(root.right != null){
+            
+            if (root.right != null) {
                 root.right.next = connectToRight(root.next);
             }
             connect(root.right);
@@ -27,15 +24,17 @@ public class Solution {
         }
     }
     
-    public TreeLinkNode connectToRight(TreeLinkNode root){
-        while(root != null){
-            if(root.left != null)
-                return root.left;
-            if(root.right != null)
-                return root.right;
-            root = root.next;
+    public TreeLinkNode connectToRight(TreeLinkNode root) {
+        if (root == null) {
+            return null;
         }
-        return null;
+        if (root.left != null) {
+            return root.left;
+        }
+        if (root.right != null) {
+            return root.right;
+        }
+        return connectToRight(root.next);
     }
 }
 

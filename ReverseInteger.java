@@ -2,14 +2,14 @@ public class Solution {
     public int reverse(int x) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        boolean flag = x >= 0?true:false;
+        boolean flag = x >= 0 ? true : false;
         x = Math.abs(x);
         int result = 0;
-        while(x > 0){
+        while (x > 0) {
             result = result * 10 + x % 10;
-            x = x/10;
+            x = x / 10;
         }
-        return flag?result:-result;
+        return flag ? result : -result;
     }
 }
 
@@ -21,9 +21,10 @@ public class Solution {
     }
     
     public int reverseHelper(int x, int y){
-        if(x == 0)
+        if (x == 0) {
             return y;
-        else{
+        }
+        else {
             y = y * 10 + x % 10;
             x = x / 10;
             return reverseHelper(x, y);

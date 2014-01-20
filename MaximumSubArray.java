@@ -9,32 +9,36 @@ public class Solution {
     public int ONmethod(int[] A){
        int max = Integer.MIN_VALUE;
         int sum = 0;
-        for(int i = 0; i < A.length; ++i){
+        for (int i = 0; i < A.length; ++i) {
             sum += A[i];
-            if(max < sum)
+            if(max < sum) {
                 max = sum;
-            if(sum < 0)
+            }
+            if(sum < 0) {
                 sum = 0;
+            }
         }
         return max;
     }
     //O(N^2)
-    public int divideAndConquer(int[] A, int left, int right){
-        if(left > right)
+    public int divideAndConquer(int[] A, int left, int right) {
+        if (left > right) {
             return 0;
-        if(left == right)
+        }
+        if (left == right) {
             return A[left];
+        }
         
         int mid = (left + right) / 2;
         
         int sum = 0, max = Integer.MIN_VALUE;
-        for(int i = mid; i >= left; i--){
+        for (int i = mid; i >= left; --i) {
             sum += A[i];
             max = Math.max(sum, max);
         }
         
         sum = max;
-        for(int i = mid + 1;i <= right; i++){
+        for(int i = mid + 1;i <= right; ++i) {
             sum += A[i];
             max = Math.max(sum, max);
         }
