@@ -7,32 +7,30 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Use a queue, no recursion, reverse at the last, O(N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
-        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
-        nodes.add(root);
-        while(nodes.peek() != null){
-            LinkedList<TreeNode> tmp = new LinkedList<TreeNode>();
-            ArrayList<Integer> result = new ArrayList<Integer>();
-            while(nodes.peek() != null){
-                TreeNode current = nodes.pop();
-                if(current.left != null)
-		    tmp.add(current.left);
-                if(current.right != null)
-		   tmp.add(current.right);
-                result.add(current.val);
+        ArrayList<ArrayList<Integer>> allLevels = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> oneLevel = new ArrayList<Integer>();
+        Queue<TreeNode> curLevel = new LinkedList<TreeNode>();
+        curLevel.offer(root);
+        Queue<TreeNode> nextLevel = new LinkedList<TreeNode>();
+        while(!curLevel.isEmpty() && curLevel.peek() != null) {
+            TreeNode node = curLevel.poll();
+            if (node.left != null) {
+                nextLevel.offer(node.left);
             }
-            results.add(result);
-            nodes = tmp;
+            if (node.right != null) {
+                nextLevel.offer(node.right);
+            }
+            oneLevel.add(node.val);
+            if (curLevel.isEmpty()) {
+                curLevel = nextLevel;
+                nextLevel = new LinkedList<TreeNode>();
+                allLevels.add(0, oneLevel);
+                oneLevel = new ArrayList<Integer>();
+            }
         }
-        ArrayList<ArrayList<Integer>> finalResult = new ArrayList<ArrayList<Integer>>();
-        for(int i = results.size() - 1; i>=0; i--)
-            finalResult.add(results.get(i));
-        return finalResult;
+        return allLevels;
     }
 }
 
