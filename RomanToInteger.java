@@ -13,12 +13,15 @@ public class Solution {
         map.put('M', 1000);
         int len = s.length();
         int sum = 0;
-        for(int i = 0; i < len; ++i){
+        for (int i = 0; i < len; ++i) {
             int cur = map.get(s.charAt(i));
-            if(i < len - 1 && map.get(s.charAt(i)) < map.get(s.charAt(i + 1)))
+            if (i < len - 1 
+                && map.get(s.charAt(i)) < map.get(s.charAt(i + 1))) {
                 sum -= cur;
-            else
+            }
+            else {
                 sum +=cur;
+            }
         }
         return sum;
     }

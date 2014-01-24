@@ -1,5 +1,4 @@
 public class Solution {
-
     // A xor A = 0, so A^B^A = B
     public int singleNumber(int[] A) {
         // IMPORTANT: Please reset any member data you declared, as

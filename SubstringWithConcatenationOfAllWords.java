@@ -1,34 +1,43 @@
 //O(N * k * l) N is length of S, k is length of L, l is word length in L
 public class Solution {
     public ArrayList<Integer> findSubstring(String S, String[] L) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int index = 0;
-        int wordLen = L[0].length();
-        ArrayList<String> words = new ArrayList<String>(Arrays.asList(L));
+        boolean[] map = new boolean[L.length];
+        int len = L[0].length();
+        int i = 0, j = 0;
         ArrayList<Integer> result = new ArrayList<Integer>();
-        
-        int start = 0;
-        while(index <= S.length() - wordLen){
-            String word = S.substring(index, index + wordLen);
-            if(words.size() == L.length)
-                start = index;
-            if(words.contains(word)){
-                words.remove(word);
-                index += wordLen;
+        while (j + len <= S.length()) {
+            String word = S.substring(j, j + len);
+            boolean found = false;
+            for (int k = 0; k < L.length; ++k) {
+                if (!map[k] && word.equals(L[k])) {
+                    map[k] = true;
+                    found = true;
+                }
             }
-            else{
-                words = new ArrayList<String>(Arrays.asList(L));
-                index = start + 1;
+            if (found && checkMap(map)) {
+                result.add(i);
+                i += 1;
+                j = i;
+                Arrays.fill(map, false);
             }
-            
-            if(words.size() == 0){
-                result.add(start);
-                start = start + wordLen;
-                index = start;
-                words = new ArrayList<String>(Arrays.asList(L));
-            }  
+            else if (found) {
+                j += len;
+            }
+            else {
+                i += 1;
+                j = i;
+                Arrays.fill(map, false);
+            }
         }
         return result;
+    }
+    
+    public boolean checkMap(boolean[] map) {
+        for (boolean f : map) {
+            if (!f) {
+                return false;
+            }
+        }
+        return true;
     }
 }

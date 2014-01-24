@@ -20,12 +20,14 @@ public class Solution {
     }
     
     public int removeNthFromEndHelper(ListNode head, int n){
-        if(head == null)
+        if (head == null) {
             return 0;
-        else{
+        }
+        else {
             int count = removeNthFromEndHelper(head.next, n) + 1;
-            if(count == n + 1)
+            if (count == n + 1) {
                 head.next = head.next.next;
+            }
             return count;
         }
     }

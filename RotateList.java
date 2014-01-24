@@ -4,26 +4,31 @@ public class Solution {
         // Start typing your Java solution below
         // DO NOT write main() function
         ListNode cur = head;
-        if(cur == null || n == 0)   return head;
+        if (cur == null || n == 0) {
+            return head;
+        }
         int size = 0;
-        while(cur != null){
+        while (cur != null) {
             cur = cur.next;
             ++size;
         }
         int k = n % size;
-        if(k == 0)  return head;
+        if (k == 0) {
+            return head;
+        }
         k = size - k;
         cur = head;
         ListNode pre = null;
-        while(cur.next != null){
+        while (cur.next != null) {
             --k;
-            if(k == 0){
+            if (k == 0) {
                 pre = cur.next;
                 cur.next = null;
                 cur = pre;
             }
-            else
+            else {
                 cur = cur.next;
+            }
         }
         cur.next = head;
         return pre;

@@ -9,8 +9,9 @@
  */
 public class Solution {
     public int sumNumbers(TreeNode root) {
-        if (root == null)
+        if (root == null) {
             return 0;
+        }
         return sumNumbers(root, 0);
     }
     

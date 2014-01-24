@@ -15,23 +15,25 @@ public class Solution {
         return generateTrees(1, n);
     }
     
-    public ArrayList<TreeNode> generateTrees(int start, int end){
+    public ArrayList<TreeNode> generateTrees(int start, int end) {
         ArrayList<TreeNode> result = new ArrayList<TreeNode>();
-        if(start <= end){
-            for(int i = start; i <= end; ++i){
+        if (start <= end) {
+            for (int i = start; i <= end; ++i) {
                 ArrayList<TreeNode> left = generateTrees(start, i - 1);
                 ArrayList<TreeNode> right = generateTrees(i + 1, end);
-                for(TreeNode l: left)
-                    for(TreeNode r: right){
+                for (TreeNode l: left) {
+                    for (TreeNode r: right) {
                         TreeNode node = new TreeNode(i);
                         node.left = l;
                         node.right = r;
                         result.add(node);
                     }
+                }
             }
         }
-        else
+        else {
             result.add(null);
+        }
         return result;
     }
 }

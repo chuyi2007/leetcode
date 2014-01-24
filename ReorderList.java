@@ -29,6 +29,7 @@ public class Solution {
         
         ListNode pre = null;
         ListNode next = null;
+        //split to half
         while (cur != null) {
             if (index == mid) {
                 next = cur.next;
@@ -50,6 +51,7 @@ public class Solution {
             ++index;
         }
         
+        //reorder the list
         cur = head;
         ListNode next2 = null;
         while (cur != null && pre != null) {

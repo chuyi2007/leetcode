@@ -6,53 +6,42 @@ public class Solution {
     }
     
     //O(N)
-    public void onePass(int[] A){
+    public void onePass(int[] A) {
         int li = 0, ri = A.length - 1;
-        for(int mi = 0; mi <= ri; ++mi){
-            if(A[mi] == 2){
+        for (int mi = 0; mi <= ri; ++mi) {
+            if (A[mi] == 2) {
                 swap(A, mi, ri);
                 --mi;
                 --ri;
             }
-            else if(A[mi] == 0){
+            else if (A[mi] == 0) {
                 swap(A, mi, li);
                 ++li;
             }
         }
     }
     
-    public void swap(int[] A, int i, int j){
+    public void swap(int[] A, int i, int j) {
         int tmp = A[i];
         A[i] = A[j];
         A[j] = tmp;
     }
     
     //O(N)
-    public void twoPass(int[] A){
+    public void twoPass(int[] A) {
         int[] counts = new int[3];
-        for(int i = 0; i < A.length; i++){
+        for (int i = 0; i < A.length; i++) {
             ++counts[A[i]];
         }
-        for(int i = 0; i < A.length; i++){
-            if(i < counts[0])
+        for (int i = 0; i < A.length; i++) {
+            if (i < counts[0]) {
                 A[i] = 0;
-            else if ( i < counts[0] + counts[1])
+            }
+            else if (i < counts[0] + counts[1]) {
                 A[i] = 1;
-            else
+            }
+            else {
                 A[i] = 2;
-        }
-    }
-
-    //O(N^2)
-    public void brutalSearch(int[] A){
-        int n = A.length;
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
-                if(A[i] < A[j]){
-                    int tmp = A[i];
-                    A[i] = A[j];
-                    A[j] = tmp;
-                }
             }
         }
     }

@@ -12,17 +12,19 @@ public class Solution {
     }
     
     public void subsetsWithDup(int[] num, int index, ArrayList<Integer> bt,
-                               ArrayList<ArrayList<Integer>> results){
+                               ArrayList<ArrayList<Integer>> results) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        for(int i = 1; i < bt.size(); ++i)
+        for (int i = 1; i < bt.size(); ++i) {
             result.add(num[bt.get(i)]);
+        }
         results.add(result);
-        for(int i = bt.get(index) + 1; i < num.length; ++i){
+        for (int i = bt.get(index) + 1; i < num.length; ++i) {
             bt.add(i);
             subsetsWithDup(num, index + 1, bt, results);
             bt.remove(bt.size() - 1);
-            while(i < num.length - 1 && num[i] == num[i + 1])
+            while(i < num.length - 1 && num[i] == num[i + 1]) {
                 ++i;
+            }
         }
     }
 }
@@ -36,18 +38,20 @@ public class Solution {
         return subsetsWithDup(num, num.length - 1, new HashSet<ArrayList<Integer>>());
     }
     
-    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num, int index, HashSet<ArrayList<Integer>> set){
+    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num, 
+                                                        int index, 
+                                                        HashSet<ArrayList<Integer>> set) {
         ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
-        if(index < 0){
+        if (index < 0) {
             results.add(new ArrayList<Integer>());
         }
-        else{
+        else {
             results = subsetsWithDup(num, index - 1, set);
             int size = results.size();
-            for(int i = 0; i < size; ++i){
+            for (int i = 0; i < size; ++i) {
                 ArrayList<Integer> tmp = new ArrayList<Integer>(results.get(i));
                 tmp.add(num[index]);
-                if(!set.contains(tmp)){
+                if (!set.contains(tmp)) {
                     results.add(tmp);
                     set.add(tmp);
                 }

@@ -7,9 +7,9 @@ public class Solution {
         while (--n >= 0) {
             two |= one & A[n];
             one ^= A[n];
-            three = one & two;
-            one &= ~three;
-            two &= ~three;
+            threeMask = ~(one & two);
+            one &= threeMask;
+            two &= threeMask;
         }
         return one;
     }

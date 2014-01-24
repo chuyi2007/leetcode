@@ -1,39 +1,32 @@
-//O(N)
 public class Solution {
     public String simplifyPath(String path) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         Stack<String> st = new Stack<String>();
-        StringBuffer sb = new StringBuffer();
-        for(int i = 0; i < path.length(); ++i){
-            char a = path.charAt(i);
-            if(a == '/'){
-                if(sb.length() > 0 && !sb.toString().equals("."))
-                    st.push(sb.toString());
-                sb = new StringBuffer();
-            }
-            else if(a == '.'){
-                if(!sb.toString().equals("."))
-                    sb.append('.');
-                else if(!st.isEmpty()){
-                    sb = new StringBuffer();
-                    st.pop();
+        String word = "";
+        for (int i = 0; i <= path.length(); ++i) {
+            if (i == path.length() || path.charAt(i) == '/') {
+                if (word.length() > 0) {
+                    if (word.equals("..")) {
+                        if (!st.isEmpty()) {
+                            st.pop();
+                        }
+                    }
+                    else if (!word.equals(".")) {
+                        st.push(word);
+                    }
+                    word = "";
                 }
             }
-            else{
-                sb.append(a);
+            else {
+                word += String.valueOf(path.charAt(i));
             }
         }
-        if(sb.length() > 0 && !sb.toString().equals("."))
-            st.push(sb.toString());
-        if(st.isEmpty())
+        if (st.isEmpty()) {
             return "/";
-        else{
-            String result = "";
-            while(!st.isEmpty()){
-                result = "/" + st.pop() + result;
-            }
-            return result;
         }
+        String sb = "";
+        while (!st.isEmpty()) {
+            sb = "/" + st.pop() + sb;   
+        }
+        return sb.toString();
     }
 }

@@ -16,12 +16,14 @@ public class Solution {
     }
     
     public boolean isValidBST(TreeNode node, int min, int max){
-        if(node != null){
-            if(node.val > min && node.val < max)
+        if (node != null) {
+            if (node.val > min && node.val < max) {
                 return isValidBST(node.left, min, node.val)
                 && isValidBST(node.right, node.val, max);
-            else
+            }
+            else {
                 return false;
+            }
         }
         return true;
     }

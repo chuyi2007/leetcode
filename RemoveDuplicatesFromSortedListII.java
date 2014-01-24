@@ -17,15 +17,16 @@ public class Solution {
         ListNode sen = new ListNode(0);
         sen.next = head;
         ListNode pre = sen;
-        while(head != null && head.next != null){
-            if(head.val == head.next.val){
+        while (head != null && head.next != null) {
+            if (head.val == head.next.val) {
                 ListNode cur = head.next;
-                while(cur != null && head.val == cur.val)
+                while (cur != null && head.val == cur.val) {
                     cur = cur.next;
+                }
                 pre.next = cur;
                 head = cur;
             }
-            else{
+            else {
                 pre = head;
                 head = head.next;
             }

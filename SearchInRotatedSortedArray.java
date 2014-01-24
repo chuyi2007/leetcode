@@ -3,22 +3,27 @@ public class Solution {
         // Start typing your Java solution below
         // DO NOT write main() function
         int min = 0, max = A.length - 1;
-        while(max >= min){
+        while (max >= min) {
             int mid = (max + min) / 2;
-            if(A[mid] < target){
-                if(A[mid] < A[min] && A[min] <= target)
+            if (A[mid] < target) {
+                if (A[mid] < A[min] && A[min] <= target) {
                     max = mid - 1;
-                else
+                }
+                else {
                     min = mid + 1;
+                }
             }
-            else if(A[mid] > target){
-                if(A[mid] > A[max] && A[max] >= target)
+            else if (A[mid] > target) {
+                if (A[mid] > A[max] && A[max] >= target) {
                     min = mid + 1;
-                else
+                }
+                else {
                     max = mid - 1;
+                }
             }
-            else
+            else {
                 return mid;
+            }
         }
         return -1;
     }

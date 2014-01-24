@@ -4,13 +4,13 @@ public class Solution {
         // DO NOT write main() function
         int uni = -1;
         int dupCount = 0;
-        for(int i = 0; i < A.length; ++i){
-            while(i < A.length - 1 && A[i] == A[i + 1]){
+        for (int i = 0; i < A.length; ++i) {
+            while (i < A.length - 1 && A[i] == A[i + 1]) {
                 ++i;
                 ++dupCount;
-                if(dupCount < 2){
+                if (dupCount < 2) {
                     A[++uni] = A[i];
-                } 
+                }
             }
             A[++uni] = A[i];
             dupCount = 0;

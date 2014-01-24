@@ -6,7 +6,7 @@ public class Solution {
         visited.add(start);
         int level = 1;
         int thisLevel = 1, nextLevel = 0;
-        while(!path.isEmpty()) {
+        while (!path.isEmpty()) {
             String word = path.poll();
             --thisLevel;
             for (int i = 0; i < word.length(); ++i) {

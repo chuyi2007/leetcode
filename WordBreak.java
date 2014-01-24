@@ -6,6 +6,7 @@ public class Solution {
             return true;
         }
         
+        //s.substring(i, j) found in dict
         boolean[] dp = new boolean[s.length() + 1];
         
         dp[0] = true;
