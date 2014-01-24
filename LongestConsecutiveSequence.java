@@ -4,8 +4,9 @@ public class Solution {
         
         int max = 1;
         for (int i : num) {
-            if (clusters.containsKey(i))
+            if (clusters.containsKey(i)) {
                 continue;
+            }
             clusters.put(i, 1);
             
             if (clusters.containsKey(i + 1)) {

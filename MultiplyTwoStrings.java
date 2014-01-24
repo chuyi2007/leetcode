@@ -1,28 +1,27 @@
 public class Solution {
     public String multiply(String num1, String num2) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int[] product = new int[num1.length() + num2.length()];
-        //in case overflow
-        if(num1.equals("0") || num2.equals("0"))
+        if (num1.equals("0") || num2.equals("0")) {
             return "0";
-        for(int i = num1.length() - 1; i >= 0; --i){
-            for(int j = num2.length() - 1; j >= 0; --j){
-                int a = num1.charAt(i) - 48, b = num2.charAt(j) - 48;
-                product[i + j + 1] += a * b;
+        }
+        int m = num1.length(), n = num2.length();
+        int[] num = new int[m + n];
+        for (int i = m - 1; i >= 0; --i) {
+            for (int j = n - 1; j >= 0; --j) {
+                num[i + j + 1] += (num1.charAt(i) - 48) * (num2.charAt(j) - 48);
             }
         }
-
+        
         int carry = 0;
-        StringBuffer sb = new StringBuffer();
-        for(int i = product.length - 1; i >= 1; --i){
-            int sum = product[i] + carry;
-            product[i] = sum % 10;
+        String result = ""; 
+        for (int i = num.length - 1; i > 0; --i) {
+            int sum = carry + num[i];
+            num[i] = sum % 10;
             carry = sum / 10;
-            sb.append(product[i]);
+            result = String.valueOf(num[i]) + result;
         }
-        if(carry != 0)
-            sb.append(carry);
-        return sb.reverse().toString();
+        if (carry != 0) {
+            result = String.valueOf(carry) + result;
+        }
+        return result;
     }
 }

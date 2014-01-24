@@ -12,15 +12,16 @@ public class Solution {
     }
     
     public void combinationSum(int[] candidates, int target, int index, ArrayList<Integer> bt,
-                               ArrayList<ArrayList<Integer>> results){
-        if(target == 0){
+                               ArrayList<ArrayList<Integer>> results) {
+        if (target == 0) {
             ArrayList<Integer> result = new ArrayList<Integer>();
-            for(int i = 1; i < bt.size(); ++i)
+            for (int i = 1; i < bt.size(); ++i) {
                 result.add(candidates[bt.get(i)]);
+            }
             results.add(result);
         }
-        else if(target > 0){
-            for(int i = bt.get(index); i < candidates.length; ++i){
+        else if (target > 0) {
+            for (int i = bt.get(index); i < candidates.length; ++i) {
                 bt.add(i);
                 combinationSum(candidates, target - candidates[i], index + 1, bt, results);
                 bt.remove(bt.size() - 1);

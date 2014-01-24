@@ -7,40 +7,43 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//O(N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        Stack<TreeNode> thisLevel = new Stack<TreeNode>();
-        Stack<TreeNode> nextLevel = new Stack<TreeNode>();
-        thisLevel.push(root);
-        boolean flag = true;
-        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        while(!thisLevel.isEmpty() && thisLevel.peek() != null){
-            TreeNode node = thisLevel.pop();
-            if(!flag){
-                if(node.right != null)
-                    nextLevel.push(node.right);
-                if(node.left != null)
-                    nextLevel.push(node.left);
+        ArrayList<ArrayList<Integer>> allLevels = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> thisLevel = new ArrayList<Integer>();
+        int thisLevelCount = 1, nextLevelCount = 0;
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.offer(root);
+        
+        boolean reverseFlag = false;
+        while (!q.isEmpty() && q.peek() != null) {
+            TreeNode node = q.poll();
+            --thisLevelCount;
+            if (node.left != null) {
+                q.offer(node.left);
+                ++nextLevelCount;
             }
-            else{
-                if(node.left != null)
-                    nextLevel.push(node.left);
-                if(node.right != null)
-                    nextLevel.push(node.right);
+            if (node.right != null) {
+                q.offer(node.right);
+                ++nextLevelCount;
             }
-            result.add(node.val);
-            if(thisLevel.isEmpty()){
-                results.add(result);
-                result = new ArrayList<Integer>();
-                thisLevel = nextLevel;
-                nextLevel = new Stack<TreeNode>();
-                flag = !flag;
+            
+            if (reverseFlag) {
+                thisLevel.add(0, node.val);
+            }
+            else {
+                thisLevel.add(node.val);
+            }
+            
+            if (thisLevelCount == 0) {
+                thisLevelCount = nextLevelCount;
+                nextLevelCount = 0;
+                allLevels.add(thisLevel);
+                thisLevel = new ArrayList<Integer>();
+                reverseFlag = !reverseFlag;
             }
         }
-        return results;
+        
+        return allLevels;
     }
 }

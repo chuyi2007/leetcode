@@ -1,52 +1,46 @@
 //O(N) solution
 public class Solution {
     public String minWindow(String S, String T) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int min = S.length() + 1;
+        int[] count = new int[256];
         int[] match = new int[256];
-        int[] target = new int[256];
-        
-        for(int i = 0; i < T.length(); ++i){
-            ++target[(int)T.charAt(i)];
+        int total = 0;
+        for (char c : T.toCharArray()) {
+            ++match[(int)c];
+            ++total;
         }
-        
-        int count = T.length();
-        int start = -1, end = -1;
-        //i as start index, j as end index
-        for(int i = 0, j = 0; i <= j && j <= S.length();){
-            if(count > 0){
-                if(j == S.length())
+        int start = -1, end = -1, min = Integer.MAX_VALUE;
+        for (int i = 0, j = 0; i <= j && j <= S.length();) {
+            if (total > 0) {
+                if (j == S.length()) {
                     break;
-                char ce = S.charAt(j);
-                if(T.contains(String.valueOf(ce))){
-                    ++match[(int)ce];
-                    if(match[(int)ce] <= target[(int)ce])
-                        --count;
+                }
+                char ce= S.charAt(j);
+                ++count[(int)ce];
+                if (count[(int)ce] <= match[(int)ce]) {
+                    --total;
                 }
                 ++j;
             }
-            
-            if(count == 0){
-                char cs = S.charAt(i);
-                int len = j - i;
-                if(len < min){
-                    min = len;
+            if (total == 0) {
+                if (j - i< min) {
+                    min = j - i;
                     start = i;
                     end = j;
                 }
-                if(T.contains(String.valueOf(cs))){
-                    --match[(int)cs];
-                    if(match[(int)cs] < target[(int)cs])
-                        ++count;
+                char cs = S.charAt(i);
+                if (T.contains(String.valueOf(cs))) {
+                    if (count[(int)cs] <= match[(int)cs]) {
+                        ++total;
+                    }
+                    --count[(int)cs];
                 }
                 ++i;
             }
         }
-        if(start == -1)
+        if (start == -1) {
             return "";
-        else
-            return S.substring(start, end);
+        }
+        return S.substring(start, end);
     }
 }
 

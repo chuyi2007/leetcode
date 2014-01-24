@@ -37,7 +37,7 @@ public class Solution {
         // Start typing your Java solution below
         // DO NOT write main() function
         ArrayList<Integer> result = new ArrayList<Integer>();
-        if(node == null) {
+        if (node == null) {
 	       return new ArrayList<Integer>();
         }
         result.addAll(inorderTraversal(node.left));

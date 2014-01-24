@@ -7,28 +7,32 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//O(N)
 public class Solution {
     public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
-        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
-        nodes.add(root);
-        while(nodes.peek() != null){
-            LinkedList<TreeNode> tmp = new LinkedList<TreeNode>();
-            ArrayList<Integer> result = new ArrayList<Integer>();
-            while(nodes.peek() != null){
-                TreeNode current = nodes.pop();
-                if(current.left != null)
-		    tmp.add(current.left);
-                if(current.right != null)
-		    tmp.add(current.right);
-                result.add(current.val);
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.offer(root);
+        ArrayList<ArrayList<Integer>> allLevels = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> thisLevel = new ArrayList<Integer>();
+        int thisLevelCount = 1, nextLevelCount = 0;
+        while (!q.isEmpty() && q.peek() != null) {
+            TreeNode node = q.poll();
+            thisLevel.add(node.val);
+            --thisLevelCount;
+            if (node.left != null) {
+                q.offer(node.left);
+                ++nextLevelCount;
             }
-            results.add(result);
-            nodes = tmp;
+            if (node.right != null) {
+                q.offer(node.right);
+                ++nextLevelCount;
+            }
+            if (thisLevelCount == 0) {
+                thisLevelCount = nextLevelCount;
+                nextLevelCount = 0;
+                allLevels.add(thisLevel);
+                thisLevel = new ArrayList<Integer>();
+            }
         }
-        return results;
+        return allLevels;
     }
 }

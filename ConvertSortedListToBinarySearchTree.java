@@ -22,7 +22,7 @@ public class Solution {
         // DO NOT write main() function
         int size = 0;
         ListNode cur = head;
-        while(cur != null){
+        while (cur != null) {
             ++size;
             cur = cur.next;
         }
@@ -31,8 +31,8 @@ public class Solution {
         return sortedListToBST(wrapper, 0, size - 1);
     }
     
-    public TreeNode sortedListToBST(ListNode[] head, int min, int max){
-        if(min <= max){
+    public TreeNode sortedListToBST(ListNode[] head, int min, int max) {
+        if (min <= max) {
             int mid = (max + min) / 2;
             TreeNode leftTree = sortedListToBST(head, min, mid - 1);
             TreeNode midTree = new TreeNode(head[0].val);
@@ -41,7 +41,8 @@ public class Solution {
             midTree.right = sortedListToBST(head, mid + 1, max);
             return midTree;
         }
-        else
+        else {
             return null;
+        }
     }
 }

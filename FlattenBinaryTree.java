@@ -15,18 +15,20 @@ public class Solution {
         Stack<TreeNode> st = new Stack<TreeNode>();
         st.push(root);
         TreeNode cur = null;
-        while(!st.isEmpty() && st.peek() != null){
+        while (!st.isEmpty() && st.peek() != null) {
             TreeNode parent = st.pop();
-            if(parent.right != null)
+            if (parent.right != null) {
                 st.push(parent.right);
-            if(parent.left != null)
+            }
+            if (parent.left != null) {
                 st.push(parent.left);
+            }
             parent.right = null;
             parent.left = null;
-            if(parent == root){
+            if (parent == root) {
                 cur = parent;
             }
-            else{
+            else {
                 cur.right = parent;
                 cur = cur.right;
             }

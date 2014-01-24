@@ -1,43 +1,44 @@
 public class Solution {
     public ArrayList<String[]> solveNQueens(int n) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         ArrayList<String[]> result = new ArrayList<String[]>();
         int[] board = new int[n];
-        solveQueens(0, board, result);
+        solveNQueens(result, board, 0);
         return result;
     }
     
-    public void solveQueens(int index, int[] board, ArrayList<String[]> result){
-        int n = board.length;
-        if(index == n){
-            String[] row = new String[n];
-            for(int i = 0; i < n; ++i){
-                StringBuffer sb = new StringBuffer();
-                for(int j = 0; j < n; ++j)
-                    if(board[i] == j)
-                        sb.append('Q');
-                    else
-                        sb.append('.');
-                row[i] = sb.toString();
+    public void solveNQueens(ArrayList<String[]> result, int[] board, int index) {
+        if (index == board.length) {
+            String[] one = new String[board.length];
+            for (int i = 0; i < board.length; ++i) {
+                String line = "";
+                for (int j = 0; j < board.length; ++j) {
+                    if (board[i] == j) {
+                        line += "Q";
+                    }
+                    else {
+                        line += ".";
+                    }
+                }
+                one[i] = line;
             }
-            result.add(row);
+            result.add(one);
         }
-        else{
-            for(int i = 0; i < n; ++i){
-                if(checkBoard(board, index, i)){
+        else {
+            for (int i = 0; i < board.length; ++i) {
+                if (checkBoard(board, index, i)) {
                     board[index] = i;
-                    solveQueens(index + 1, board, result);
+                    solveNQueens(result, board, index + 1);
                 }
             }
         }
     }
     
-    public boolean checkBoard(int[] board, int index, int val){
-        for(int i = 0; i < index; ++i){
-            if(board[i] == val 
-            || Math.abs(i - index) == Math.abs(board[i] - val))
+    public boolean checkBoard(int[] board, int index, int val) {
+        for (int i = 0; i < index; ++i) {
+            if (board[i] == val 
+                || Math.abs(board[i] - val) == Math.abs(i - index)) {
                 return false;
+            }
         }
         return true;
     }

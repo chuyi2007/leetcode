@@ -14,7 +14,7 @@ public class Solution {
         Queue<TreeNode> curLevel = new LinkedList<TreeNode>();
         curLevel.offer(root);
         Queue<TreeNode> nextLevel = new LinkedList<TreeNode>();
-        while(!curLevel.isEmpty() && curLevel.peek() != null) {
+        while (!curLevel.isEmpty() && curLevel.peek() != null) {
             TreeNode node = curLevel.poll();
             if (node.left != null) {
                 nextLevel.offer(node.left);
@@ -41,7 +41,7 @@ public class Solution {
         // DO NOT write main() function
         ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
         int max = getMaxLevel(root);
-        for(int i = max - 1; i >= 0; --i){
+        for (int i = max - 1; i >= 0; --i) {
             ArrayList<Integer> result = new ArrayList<Integer>();
             findSameLevel(root, i, result);
             results.add(result);
@@ -49,20 +49,22 @@ public class Solution {
         return results;
     }
     
-    public int getMaxLevel(TreeNode root){
-        if(root!= null)
+    public int getMaxLevel(TreeNode root) {
+        if (root!= null) {
             return Math.max(getMaxLevel(root.left), getMaxLevel(root.right)) + 1;
-        else
+        }
+        else {
             return 0;
+        }
     }
     
     public void findSameLevel(TreeNode root, int level, ArrayList<Integer> result){
-        if(root != null){
-            if(level > 0){
+        if (root != null) {
+            if (level > 0) {
                 findSameLevel(root.left, level - 1, result);
                 findSameLevel(root.right, level - 1, result);
             }
-            else{
+            else {
                 result.add(root.val);
             }
         }

@@ -4,17 +4,16 @@ public class Solution {
         // DO NOT write main() function
         return divideAndConquer(A, 0, A.length - 1);
     }
-    
     //O(N)
-    public int ONmethod(int[] A){
+    public int ONmethod(int[] A) {
        int max = Integer.MIN_VALUE;
         int sum = 0;
         for (int i = 0; i < A.length; ++i) {
             sum += A[i];
-            if(max < sum) {
+            if (max < sum) {
                 max = sum;
             }
-            if(sum < 0) {
+            if (sum < 0) {
                 sum = 0;
             }
         }
@@ -38,7 +37,7 @@ public class Solution {
         }
         
         sum = max;
-        for(int i = mid + 1;i <= right; ++i) {
+        for (int i = mid + 1;i <= right; ++i) {
             sum += A[i];
             max = Math.max(sum, max);
         }

@@ -1,29 +1,29 @@
 public class Solution {
     public String longestPalindrome(String s) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int size = s.length();
-        if(size < 2)    return s;
-        String max = "";
-        for(int i = 0; i < s.length(); ++i){
-            String l = findLongest(i - 1, i + 1, s);
-            if(max.length() < l.length())
-		max = l;
-            l = findLongest(i, i+1, s);
-            if(max.length() < l.length())
- 	        max = l;
+        String r = "";
+        for (int i = 0; i < s.length(); ++i) {
+            String l1 = findLongest(s, i, i);
+            if (r.length() < l1.length()) {
+                r = l1;
+            }
+            if (i < s.length() -1 && s.charAt(i) == s.charAt(i + 1)) {
+                String l2 = findLongest(s, i, i + 1);
+                if (r.length() < l2.length()) {
+                    r = l2;
+                }
+            }
         }
-        return max;
+        return r;
     }
     
-    public String findLongest(int j, int k, String s){
-        while(j >= 0 && k <= s.length() - 1)
-            if(s.charAt(j) == s.charAt(k)){
-                --j;
-                ++k;
+    public String findLongest(String s, int i, int j) {
+        while (i > 0 && j < s.length() - 1) {
+            if (s.charAt(i - 1) != s.charAt(j + 1)) {
+                break;
             }
-            else
-	        break;
-        return s.substring(j+1, k);    
+            ++j;
+            --i;
+        }
+        return s.substring(i, j + 1);
     }
 }

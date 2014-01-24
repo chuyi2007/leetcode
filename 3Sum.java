@@ -44,21 +44,21 @@ public class Solution {
         Arrays.sort(num);
         ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
         HashSet<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
-        for(int i = 0; i < num.length; i++){
-            for(int j = i + 1, k = num.length - 1; j < k;){
+        for (int i = 0; i < num.length; i++) {
+            for (int j = i + 1, k = num.length - 1; j < k;) {
                 int sum = num[i] + num[j] + num[k];
-                if(sum > 0) {
+                if (sum > 0) {
                     --k;
                 }
-                else if(sum < 0) {
+                else if (sum < 0) {
                     ++j;
                 }
-                else{
+                else {
                     ArrayList<Integer> tmp = new ArrayList<Integer>();
                     tmp.add(num[i]);
                     tmp.add(num[j]);
                     tmp.add(num[k]);
-                    if(!set.contains(tmp)){
+                    if (!set.contains(tmp)) {
                         set.add(tmp);
                         result.add(tmp);
                     }

@@ -9,31 +9,24 @@
  */
 public class Solution {
     public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<ArrayList<Integer>> results 
-        = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        pathSum(results, result, root, sum);
+        ArrayList<ArrayList<Integer>> results = 
+            new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> path = new ArrayList<Integer>();
+        pathSum(root, sum, path, results);
         return results;
     }
     
-    public void pathSum(ArrayList<ArrayList<Integer>> results, ArrayList<Integer> result,
-    TreeNode root, int sum){
-        if(root != null){
-            if(root.left == null && root.right == null){
-                if(sum == root.val){
-                    ArrayList<Integer> tmp = new ArrayList<Integer>(result);
-                    tmp.add(root.val);
-                    results.add(tmp);
-                }
+    public void pathSum(TreeNode root, int sum, ArrayList<Integer> path, 
+    ArrayList<ArrayList<Integer>> results) {
+        if (root != null) {
+            sum -= root.val;
+            path.add(root.val);
+            if (sum == 0 && root.left == null && root.right == null) {
+                results.add(new ArrayList<Integer>(path));
             }
-            else{
-                result.add(root.val);
-                pathSum(results, result, root.left, sum - root.val);
-                pathSum(results, result, root.right, sum - root.val);
-                result.remove(result.size() - 1);
-            }
+            pathSum(root.left, sum, path, results);
+            pathSum(root.right, sum, path, results);
+            path.remove(path.size() - 1);
         }
     }
 }

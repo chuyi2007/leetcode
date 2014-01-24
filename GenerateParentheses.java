@@ -7,15 +7,18 @@ public class Solution {
         return results;
     }
     
-    public void generateParenthesis(int leftCount, int rightCount, String s, ArrayList<String> results){
-        if(rightCount == 0 && leftCount == 0){
+    public void generateParenthesis(int leftCount, int rightCount, 
+                                    String s, ArrayList<String> results) {
+        if (rightCount == 0 && leftCount == 0) {
             results.add(s);
         }
-        else{
-            if(rightCount > 0 && rightCount > leftCount)
+        else {
+            if (rightCount > 0 && rightCount > leftCount) {
                 generateParenthesis(leftCount, rightCount-1, s + ")", results);
-            if(leftCount > 0)
+            }
+            if (leftCount > 0) {
                 generateParenthesis(leftCount - 1, rightCount, s + "(", results);
+            }
         }
     } 
 }

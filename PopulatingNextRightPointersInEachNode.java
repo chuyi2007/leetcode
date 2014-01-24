@@ -22,26 +22,4 @@ public class Solution {
             connect(root.right);
         }
     }
-    //level order use extra space
-    public void connect(TreeLinkNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        LinkedList<TreeLinkNode> list = new LinkedList<TreeLinkNode>();
-        list.offer(root);
-        int count = 1;
-        while (list.peek() != null) {
-            for (int i = 0; i < count; ++i) {
-                TreeLinkNode node = list.pop();
-                if(i == count - 1) {
-                    node.next = null;
-                }
-                else {
-                    node.next = list.peek();
-                }
-                list.offer(node.left);
-                list.offer(node.right);
-            }
-            count *= 2;
-        }
-    }
 }

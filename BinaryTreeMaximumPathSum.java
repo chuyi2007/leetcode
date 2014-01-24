@@ -18,20 +18,24 @@ public class Solution {
         return max[0];
     }
     
-    public int maxPathSum(TreeNode node, int[] max){
-        if(node != null){
+    public int maxPathSum(TreeNode node, int[] max) {
+        if (node != null) {
             int left = maxPathSum(node.left, max);
             int right = maxPathSum(node.right, max);
             int sum = left + right + node.val;
-            if(sum > max[0])
+            if (sum > max[0]) {
                 max[0] = sum;
+            }
             sum -= Math.min(left, right);
-            if(sum > 0)
+            if (sum > 0) {
                 return sum;
-            else
+            }
+            else {
                 return 0;
+            }
         }
-        else
+        else {
             return 0;
+        }
     }
 }

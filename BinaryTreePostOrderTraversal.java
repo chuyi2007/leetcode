@@ -25,10 +25,10 @@ public class Solution {
                 st.push(node);
                 if (node.right != null) {
                     st.push(node.right);
-		}
+                }
                 if (node.left != null) {
                     st.push(node.left);
-		}
+                }
             }
             node.left = null;
             node.right = null;

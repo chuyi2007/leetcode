@@ -1,35 +1,28 @@
-//O(N), N is the length of strs
 public class Solution {
     public ArrayList<String> anagrams(String[] strs) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        HashMap<String, ArrayList<String>> strMap 
-        = new HashMap<String, ArrayList<String>>();
+        HashMap<String, ArrayList<String>> map = 
+        new HashMap<String, ArrayList<String>>();
         
-        ArrayList<String> results = new ArrayList<String>();
-        for(String str : strs){
-            char[] chars = str.toCharArray();
-            Arrays.sort(chars);
-            String sorted = new String(chars);
-            
-            if(!strMap.containsKey(sorted)){
-                ArrayList<String> tmpResults = new ArrayList<String>();
-                tmpResults.add(str);
-                strMap.put(sorted, tmpResults);
+        for (int i = 0; i < strs.length; ++i) {
+            char[] c = strs[i].toCharArray();
+            Arrays.sort(c);
+            String key = new String(c);
+            if (map.containsKey(key)) {
+                map.get(key).add(strs[i]);
             }
-            else{
-                ArrayList<String> tmpResults = strMap.get(sorted);
-                tmpResults.add(str);
+            else {
+                ArrayList<String> t = new ArrayList<String>();
+                t.add(strs[i]);
+                map.put(key, t);
             }
         }
         
-        Iterator<String> iter = strMap.keySet().iterator();
-        while(iter.hasNext()){
-            ArrayList<String> tmpResult = strMap.get(iter.next());
-            if(tmpResult.size() > 1)
-                for(String str : tmpResult)
-                    results.add(str);
+        ArrayList<String> result = new ArrayList<String>();
+        for (ArrayList<String> val : map.values()) {
+            if (val.size() > 1) {
+                result.addAll(val);
+            }
         }
-        return results;
+        return result;
     }
 }

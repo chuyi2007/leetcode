@@ -13,17 +13,19 @@ public class Solution {
         // DO NOT write main() function
         int size = intervals.size();
         int s = -1, e = -1;
-        for(int i = 0; i < size; ++i){
-            if(s == -1 &&  intervals.get(i).end >= newInterval.start)
+        for (int i = 0; i < size; ++i) {
+            if (s == -1 && intervals.get(i).end >= newInterval.start) {
                 s = i;
-            if(intervals.get(i).start <= newInterval.end)
+            }
+            if (intervals.get(i).start <= newInterval.end) {
                 e = i;
+            }
         }
-        if(s == -1){
+        if (s == -1) {
             intervals.add(newInterval);
             return intervals;
         }
-        if(e == -1){
+        if (e == -1) {
             intervals.add(0, newInterval);
             return intervals;
         }

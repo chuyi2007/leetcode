@@ -3,9 +3,9 @@ public class Solution {
         // Start typing your Java solution below
         // DO NOT write main() function
         ArrayList<ArrayList<Integer>> results
-        = new ArrayList<ArrayList<Integer>>();
+            = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> result 
-        = new ArrayList<Integer>();
+            = new ArrayList<Integer>();
         boolean[] set = new boolean[num.length];
         Arrays.sort(num);
         permuteUnique(results, result, set, num, 0);
@@ -13,20 +13,24 @@ public class Solution {
     }
     
     public void permuteUnique(ArrayList<ArrayList<Integer>> results, 
-    ArrayList<Integer> result, boolean[] set, int[] num, int count){
+                                ArrayList<Integer> result, 
+                                boolean[] set, 
+                                int[] num, 
+                                int count) {
         if(count == num.length){
             results.add(new ArrayList<Integer>(result));
         }
         else{
-            for(int i = 0; i < num.length; ++i){
-                if(!set[i]){
+            for (int i = 0; i < num.length; ++i) {
+                if (!set[i]) {
                     set[i] = true;
                     result.add(num[i]);
                     permuteUnique(results, result, set, num, count + 1);
                     result.remove(result.size() - 1);
                     set[i] = false;
-                    while(i < num.length - 1 && num[i] == num[i + 1])
+                    while(i < num.length - 1 && num[i] == num[i + 1]) {
                         ++i;
+                    }
                 }
             }
         }

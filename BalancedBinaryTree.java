@@ -25,6 +25,6 @@ public class Solution {
             return 0;
         }
         return Math.max(getHeight(root.left), 
-        getHeight(root.right)) + 1;
+                getHeight(root.right)) + 1;
     }
 }

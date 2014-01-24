@@ -12,14 +12,17 @@ public class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        if(inorder.length == 0) return null;
+        if (inorder.length == 0) {
+            return null;
+        }
         int val = preorder[0];
         int index = 0;
-        for(int i = 0; i < inorder.length; ++i)
+        for (int i = 0; i < inorder.length; ++i) {
             if(inorder[i] == val){
                 index = i;
                 break;
             }
+        }
         TreeNode node = new TreeNode(val);
         node.left = buildTree(Arrays.copyOfRange(preorder, 1, index + 1),
         Arrays.copyOfRange(inorder, 0, index));

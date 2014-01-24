@@ -9,13 +9,13 @@ public class Solution {
         return results;
     }
     public void backTracking(ArrayList<ArrayList<Integer>> results, 
-    ArrayList<Integer> result, int[] num, boolean[] set, int count){
-        if(count == num.length){
+    ArrayList<Integer> result, int[] num, boolean[] set, int count) {
+        if (count == num.length) {
             results.add(new ArrayList<Integer>(result));
         }
         else{
-            for(int i = 0; i < num.length; ++i){
-                if(!set[i]){
+            for (int i = 0; i < num.length; ++i) {
+                if (!set[i]) {
                     set[i] = true;
                     result.add(num[i]);
                     backTracking(results, result, num, set, count + 1);
