@@ -12,7 +12,7 @@ public class Solution {
                 }
                 else {
                     current.add(result.get(j)
-                        + result.get(j - 1));
+                                + result.get(j - 1));
                 }
             }
             result = current;

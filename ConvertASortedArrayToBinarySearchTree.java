@@ -7,21 +7,15 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//O(N)
 public class Solution {
     public TreeNode sortedArrayToBST(int[] num) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        return sortedArrayToBST(num, 0, num.length - 1);
-    }
-    
-    public TreeNode sortedArrayToBST(int[] num, int min, int max) {
-        if (min <= max) {
-            int mid = (min + max) / 2;
-            TreeNode midTree = new TreeNode(num[mid]);
-            midTree.left = sortedArrayToBST(num, min, mid - 1);
-            midTree.right = sortedArrayToBST(num, mid + 1, max);
-            return midTree;
+        int n = num.length;
+        if (n > 0) {
+            int mid = (n - 1) / 2;
+            TreeNode node = new TreeNode(num[mid]);
+            node.left = sortedArrayToBST(Arrays.copyOfRange(num, 0, mid));
+            node.right = sortedArrayToBST(Arrays.copyOfRange(num, mid + 1, n));
+            return node;
         }
         else {
             return null;

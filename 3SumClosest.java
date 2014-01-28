@@ -1,31 +1,30 @@
-//O(N^2), o(N)
 public class Solution {
-    public Integer threeSumClosest(int[] num, int target) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
+    public int threeSumClosest(int[] num, int target) {
         Arrays.sort(num);
-        int min = Integer.MAX_VALUE;
-        int result = 0;
+        int min = Integer.MAX_VALUE, result = -1;
         for (int i = 0; i < num.length; ++i) {
             for (int j = i + 1, k = num.length - 1; j < k;) {
                 int sum = num[i] + num[j] + num[k];
-                int sub = sum - target;
-                if(sub > 0) {
+                int diff = Math.abs(sum - target);
+                if (diff < min) {
+                    min = diff;
+                    result = sum;
+                }
+                if (sum > target) {
+                    while (k > j + 1 && num[k] == num[k - 1]) {
+                        --k;
+                    }
                     --k;
                 }
-                else if(sub < 0) {
+                else {
+                    while (j < k - 1 && num[j] == num[j + 1]) {
+                        ++j;
+                    }
                     ++j;
                 }
-                else{
-                    return sum;
-                }
-                sub = Math.abs(sub);
-                if (min > sub) { 
-                    min = sub;
-                    result = sum;
-                }   
+                
             }
-            while (i < num.length -1 && num[i] == num[i+1]) {
+            while (i < num.length - 1 && num[i] == num[i + 1]) {
                 ++i;
             }
         }

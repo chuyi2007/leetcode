@@ -8,27 +8,18 @@
  * }
  */
 public class Solution {
-    //O(N)
     public boolean isSymmetric(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        return recursion(root, root);
+        return isSymmetric(root, root);
     }
     
-    //O(N)
-    public boolean recursion(TreeNode n1, TreeNode n2) {
-        if (n1 == null && n2 == null) {
+    public boolean isSymmetric(TreeNode node1, TreeNode node2) {
+        if (node1 == null && node2 == null) {
             return true;
         }
-        else if (n1 == null || n2 == null) {
+        else if (node1 == null || node2 == null || node1.val != node2.val) {
             return false;
         }
-        else if (n1.val == n2.val) {
-            return recursion(n1.left, n2.right)
-                && recursion(n1.right, n2.left);
-        }
-        else {
-            return false;
-        }
+        return isSymmetric(node1.left, node2.right)
+            && isSymmetric(node1.right, node2.left);
     }
 }

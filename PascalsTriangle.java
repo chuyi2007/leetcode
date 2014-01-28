@@ -15,7 +15,7 @@ public class Solution {
             oneRow.add(1);
             for (int j = 1; j < i; ++j) {
                 oneRow.add(triangle.get(i - 1).get(j - 1)
-                    + triangle.get(i - 1).get(j));
+                            + triangle.get(i - 1).get(j));
             }
             oneRow.add(1);
             triangle.add(oneRow);
