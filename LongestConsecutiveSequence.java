@@ -1,31 +1,25 @@
 public class Solution {
     public int longestConsecutive(int[] num) {
-        HashMap<Integer, Integer> clusters = new HashMap<Integer, Integer>();
-        
-        int max = 1;
+        Set<Integer> set = new HashSet<Integer>();
         for (int i : num) {
-            if (clusters.containsKey(i)) {
-                continue;
+            set.add(i);
+        }
+        int max = 0;
+        while (!set.isEmpty()) {
+            int val = set.iterator().next();
+            int start = val;
+            while (set.contains(start - 1)) {
+                set.remove(start);
+                --start;
             }
-            clusters.put(i, 1);
-            
-            if (clusters.containsKey(i + 1)) {
-                max = Math.max(updateCluster(clusters, i, i + 1), max);
+            int end = val;
+            while (set.contains(end + 1)) {
+                set.remove(end);
+                ++end;
             }
-            
-            if (clusters.containsKey(i - 1)) {
-                max = Math.max(updateCluster(clusters, i - 1, i), max);
-            }
+            max = Math.max(end - start + 1, max);
+            set.remove(val);
         }
         return max;
-    }
-    
-    public int updateCluster(HashMap<Integer, Integer> clusters, int left, int right) {
-        int upper = right + clusters.get(right) - 1;
-        int lower = left - clusters.get(left) + 1;
-        int len = upper - lower + 1;
-        clusters.put(upper, len);
-        clusters.put(lower, len);
-        return len;
     }
 }

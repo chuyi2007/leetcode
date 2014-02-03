@@ -14,23 +14,20 @@ public class Solution {
         else if (n == 1) {
             return true;
         }
-        
         for (int i = 1; i < n; ++i) {
-            String a1 = s1.substring(0, i);
-            String b1 = s1.substring(i, n);
-            String a2 = s2.substring(0, i);
-            String b2 = s2.substring(i, n);
-            String x1 = s2.substring(0, n - i);
-            String y1 = s2.substring(n - i, n);
-            
-            if (isScramble(a1, a2) && isScramble(b1, b2)) {
+            if (isScramble(s1.substring(0, i), 
+                           s2.substring(0, i)) 
+                && isScramble(s1.substring(i, n), 
+                              s2.substring(i, n))) {
                 return true;
             }
-            else if (isScramble(a1, y1) && isScramble(b1, x1)) {
+            else if (isScramble(s1.substring(0, i), 
+                                s2.substring(n - i, n)) 
+                    && isScramble(s1.substring(i, n), 
+                                  s2.substring(0, n - i))) {
                 return true;
             }
         }
-        
         return false;
     }
 }

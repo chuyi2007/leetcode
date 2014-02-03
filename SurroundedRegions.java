@@ -1,5 +1,51 @@
 public class Solution {
     public void solve(char[][] board) {
+        if (board.length == 0) {
+            return;
+        }
+        int m = board.length, n = board[0].length;
+        for (int i = 0; i < m; ++i) {
+            DFS(board, i, 0);
+            DFS(board, i, n - 1);
+        }
+        for (int j = 1; j < n - 1; ++j) {
+            DFS(board, 0, j);
+            DFS(board, m - 1, j);
+        }
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (board[i][j] == '#') {
+                    board[i][j] = 'O';
+                }
+                else if (board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+    
+    public void DFS(char[][] board, int i, int j) {
+        int m = board.length, n = board[0].length;
+        if (board[i][j] == 'O') {
+            board[i][j] = '#';
+            if (i < m - 1) {
+                DFS(board, i + 1, j);
+            }
+            if (i > 0) {
+                DFS(board, i - 1, j);
+            }
+            if (j < n - 1) {
+                DFS(board, i, j + 1);
+            }
+            if (j > 0) {
+                DFS(board, i, j - 1);
+            }
+        }
+    }
+}
+
+public class Solution {
+    public void solve(char[][] board) {
         // Start typing your Java solution below
         // DO NOT write main() function
         if (board.length == 0) {

@@ -27,7 +27,7 @@ public class Solution {
         else {
             String s = map.get(digits.charAt(0) - 48);
             for (int i = 0; i < s.length(); ++i) {
-                naiveBackTracking(digits.substring(1), result + s.substring(i, i+1), map, results);
+                naiveBackTracking(digits.substring(1), result + s.substring(i, i + 1), map, results);
             }
         }
     }
@@ -38,8 +38,8 @@ public class Solution {
         String s;
         if (index == digits.length() - 1) { 
             s = map.get(digits.charAt(index) - 48);
-            for (int i = 0; i < s.length(); i++) {
-                result.add(s.substring(i, i+1));
+            for (int i = 0; i < s.length(); ++i) {
+                result.add(s.substring(i, i + 1));
             }
             return result;
         }

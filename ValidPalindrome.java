@@ -2,10 +2,10 @@ public class Solution {
     public boolean isPalindrome(String s) {
         s = s.toLowerCase();
         for (int i = 0, j = s.length() - 1; i <= j;) {
-            if (!checkCharacter(s.charAt(i))) {
+            if (!Character.isLetterOrDigit(s.charAt(i))) {
                 ++i;
             } 
-            else if (!checkCharacter(s.charAt(j))) {
+            else if (!Character.isLetterOrDigit(s.charAt(j))) {
                 --j;
             }
             else if (s.charAt(i) != s.charAt(j)) {
@@ -17,12 +17,5 @@ public class Solution {
             }
         }
         return true;
-    }
-    
-    public boolean checkCharacter(char a) {
-        if (a >= '0' && a <= '9' || a >= 'a' && a <= 'z') {
-            return true;
-        }
-        return false;
     }
 }

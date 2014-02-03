@@ -7,31 +7,25 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//O(N)
 public class Solution {
     public void flatten(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         Stack<TreeNode> st = new Stack<TreeNode>();
         st.push(root);
-        TreeNode cur = null;
+        TreeNode cur = root;
         while (!st.isEmpty() && st.peek() != null) {
-            TreeNode parent = st.pop();
-            if (parent.right != null) {
-                st.push(parent.right);
+            TreeNode node = st.pop();
+            if (node.right != null) {
+                st.push(node.right);
             }
-            if (parent.left != null) {
-                st.push(parent.left);
+            if (node.left != null) {
+                st.push(node.left);
             }
-            parent.right = null;
-            parent.left = null;
-            if (parent == root) {
-                cur = parent;
-            }
-            else {
-                cur.right = parent;
+            if (cur != node) {
+                cur.right = node;
                 cur = cur.right;
             }
+            node.left = null;
+            node.right = null;
         }
     }
 }

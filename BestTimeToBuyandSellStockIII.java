@@ -16,7 +16,6 @@ public class Solution {
         for (int j = start; j < end; ++j) {
             low = Math.min(low, prices[j]);
             max = Math.max(max, prices[j] - low);
-
         }
         return max;
     }
