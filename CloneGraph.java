@@ -8,32 +8,25 @@
  */
 public class Solution {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-        // IMPORTANT: Please reset any member data you declared, as
-        // the same Solution instance will be reused for each test case.
-        if (node == null)
+        if (node == null) {
             return null;
-        
-        HashMap<Integer, UndirectedGraphNode> map = new HashMap<Integer, UndirectedGraphNode>();
-        UndirectedGraphNode root = new UndirectedGraphNode(node.label);
-        map.put(root.label, root);
+        }
         Queue<UndirectedGraphNode> q = new LinkedList<UndirectedGraphNode>();
         q.offer(node);
+        UndirectedGraphNode head = new UndirectedGraphNode(node.label);
+        Map<Integer, UndirectedGraphNode> map = new HashMap<Integer, UndirectedGraphNode>();
+        map.put(head.label, head);
         while (!q.isEmpty()) {
-            UndirectedGraphNode n = q.poll();
-            for (UndirectedGraphNode c: n.neighbors) {
-                if (map.containsKey(c.label)) {
-                    map.get(n.label).neighbors.add(map.get(c.label));
+            UndirectedGraphNode n1 = q.poll();
+            for (UndirectedGraphNode n : n1.neighbors) {
+                if (!map.containsKey(n.label)) {
+                    map.put(n.label, new UndirectedGraphNode(n.label));
+                    q.offer(n);
                 }
-                else {
-                    UndirectedGraphNode clone = new UndirectedGraphNode(c.label);
-                    map.get(n.label).neighbors.add(clone);
-                    map.put(clone.label, clone);
-                    q.offer(c);
-                }
+                map.get(n1.label).neighbors.add(map.get(n.label));
             }
         }
-        
-        return root;
+        return head;
     }
 
 

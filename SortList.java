@@ -1,4 +1,3 @@
-//Sort a linked list in O(n log n) time using constant space complexity.
 /**
  * Definition for singly-linked list.
  * class ListNode {
@@ -12,67 +11,49 @@
  */
 public class Solution {
     public ListNode sortList(ListNode head) {
-        // IMPORTANT: Please reset any member data you declared, as
-        // the same Solution instance will be reused for each test case.
-        if (head == null) {
-            return null;
-        }
         int len = 0;
         ListNode cur = head;
         while (cur != null) {
             cur = cur.next;
             ++len;
         }
-        if (len == 1) {
+        if (len <= 1) {
             return head;
         }
-        
         ListNode[] nodes = splitList(head, len);
-        
         ListNode left = sortList(nodes[0]);
         ListNode right = sortList(nodes[1]);
-        
         return mergeSort(left, right);
     }
     
     public ListNode mergeSort(ListNode left, ListNode right) {
-        ListNode sentinel = new ListNode(0);
-        ListNode cur = sentinel;
+        ListNode sen = new ListNode(0);
+        ListNode pre = sen;
         while (left != null && right != null) {
-            if (left.val < right.val) {
-                cur.next = left;
-                left = left.next;
-            }
-            else {
-                cur.next = right;
+            if (left.val > right.val) {
+                pre.next = right;
                 right = right.next;
             }
-            cur = cur.next;
+            else {
+                pre.next = left;
+                left = left.next;
+            }
+            pre = pre.next;
         }
-        if (left != null) {
-            cur.next = left;
-        }
-        if (right != null) {
-            cur.next = right;
-        }
-        return sentinel.next;
+        pre.next = left == null ? right : left;
+        return sen.next;
     }
     
     public ListNode[] splitList(ListNode head, int len) {
-        int mid = len / 2;
-        
-        ListNode[] parts = new ListNode[2];
-        
+        ListNode[] nodes = new ListNode[2];
         ListNode cur = head;
-        
+        int mid = len / 2;
         for (int i = 0; i < mid - 1; ++i) {
             cur = cur.next;
         }
-        
-        parts[0] = head;
-        parts[1] = cur.next;
+        nodes[0] = head;
+        nodes[1] = cur.next;
         cur.next = null;
-        
-        return parts;
+        return nodes;
     }
 }
