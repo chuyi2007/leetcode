@@ -1,43 +1,46 @@
-//O(N) solution
 public class Solution {
     public String minWindow(String S, String T) {
-        int[] count = new int[256];
+        int m = S.length(), n = T.length();
         int[] match = new int[256];
-        int total = 0;
-        for (char c : T.toCharArray()) {
-            ++match[(int)c];
-            ++total;
+        int[] count = new int[256];
+        int mc = 0;
+        for (int i = 0; i < n; ++i) {
+            ++match[(int)T.charAt(i)];
+            ++mc;
         }
-        int start = -1, end = -1, min = Integer.MAX_VALUE;
-        for (int i = 0, j = 0; i <= j && j <= S.length();) {
-            if (total > 0) {
-                if (j == S.length()) {
-                    break;
-                }
-                char ce= S.charAt(j);
-                ++count[(int)ce];
-                if (count[(int)ce] <= match[(int)ce]) {
-                    --total;
+        
+        int start = 0, end = m + 1;
+        for (int i = 0, j = 0; i <= j && j <= m;) {
+            if (mc > 0 && j < m) {
+                char ce = S.charAt(j);
+                if (match[(int)ce] > 0) {
+                    ++count[(int)ce];
+                    if (count[(int)ce] <= match[(int)ce]) {
+                        --mc;
+                    }
                 }
                 ++j;
             }
-            if (total == 0) {
-                if (j - i< min) {
-                    min = j - i;
-                    start = i;
+            else {
+                if (mc == 0 && j - i < end - start) {
                     end = j;
+                    start = i;
+                }
+                //for special case where m = 1 && n = 1
+                if (i >= m) {
+                    break;
                 }
                 char cs = S.charAt(i);
-                if (T.contains(String.valueOf(cs))) {
-                    if (count[(int)cs] <= match[(int)cs]) {
-                        ++total;
-                    }
+                if (match[(int)cs] > 0) {
                     --count[(int)cs];
+                    if (count[(int)cs] < match[(int)cs]) {
+                        ++mc;
+                    }
                 }
                 ++i;
             }
         }
-        if (start == -1) {
+        if (end == m + 1) {
             return "";
         }
         return S.substring(start, end);
@@ -51,16 +54,16 @@ public class Solution {
         // DO NOT write main() function
         int min = S.length() + 1;
         int start = -1, end = -1;
-        for(int i = 0; i < S.length(); ++i){
-            for(int j = i + T.length(); j <= S.length(); ++j){
+        for (int i = 0; i < S.length(); ++i) {
+            for (int j = i + T.length(); j <= S.length(); ++j) {
                 String tmp = new String(T);
-                for(int k = i; k < j; ++k){
+                for (int k = i; k < j; ++k) {
                     String cur = S.substring(k, k + 1);
-                    if(tmp.contains(cur))
+                    if (tmp.contains(cur))
                         tmp = tmp.substring(0, tmp.indexOf(cur)) 
                         + tmp.substring(tmp.indexOf(cur) + 1);
                 }
-                if(tmp.length() == 0 && j - i < min){
+                if (tmp.length() == 0 && j - i < min) {
                     min = j - i;
                     start = i;
                     end = j;
@@ -69,7 +72,7 @@ public class Solution {
                 }
             }
         }
-        if(start == -1)
+        if (start == -1)
             return "";
         else
             return S.substring(start, end);

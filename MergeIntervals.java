@@ -13,7 +13,9 @@ public class Solution {
         // Start typing your Java solution below
         // DO NOT write main() function
         ArrayList<Interval> results = new ArrayList<Interval>();
-        if (intervals.size() < 1)    return intervals;
+        if (intervals.size() < 1) {
+            return intervals;
+        }   
         Collections.sort(intervals, new IntervalComparator());
         int start = intervals.get(0).start, end = intervals.get(0).end;
         for (int i = 0; i < intervals.size(); ++i) {

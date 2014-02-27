@@ -11,42 +11,36 @@
  */
 public class Solution {
     public ListNode insertionSortList(ListNode head) {
+        ListNode sortHead = null, sortTail = null;
         ListNode cur = head;
-        //new head for sorted stored list
-        ListNode newHead = null;
-        //new tail for sorted stored list's tail
-        ListNode newTail = null;
         while (cur != null) {
             ListNode insert = cur;
             cur = cur.next;
-            if (newHead == null) {
-                newHead = insert;
-                newTail = insert;
-                newTail.next = null;
+            insert.next = null;
+            if (sortHead == null) {
+                sortHead = insert;
+                sortTail = insert;
             }
-            else if (insert.val < newHead.val) {
-                insert.next = newHead;
-                newHead = insert;
+            else if (insert.val <= sortHead.val) {
+                insert.next = sortHead;
+                sortHead = insert;
             }
-            else if (insert.val > newTail.val) {
-                newTail.next = insert;
-                newTail = insert;
-                newTail.next = null;
+            else if (insert.val > sortTail.val) {
+                sortTail.next = insert;
+                sortTail = insert;
             }
             else {
-                ListNode ccur = newHead;
-                while (ccur!= null) {
-                    if (ccur.next == null || ccur.next.val > insert.val) {
-                        insert.next = ccur.next;
-                        ccur.next = insert;
+                ListNode sortCur = sortHead;
+                while(sortCur.next != null) {
+                    if (sortCur.next.val >= insert.val) {
+                        insert.next = sortCur.next;
+                        sortCur.next = insert;
                         break;
                     }
-                    else {
-                        ccur = ccur.next;
-                    }
+                    sortCur = sortCur.next;
                 }
             }
         }
-        return newHead;
+        return sortHead;
     }
 }

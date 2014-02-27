@@ -22,3 +22,22 @@ public class Solution {
         }
     } 
 }
+
+public class Solution {
+    public ArrayList<String> generateParenthesis(int n) {
+        return generateParenthesis(n, n, "");
+    }
+    
+    public ArrayList<String> generateParenthesis(int left, int right, String s) {
+        ArrayList<String> result = new ArrayList<String>();
+        if (left == 0 && right == 0)
+            result.add(s);
+        if (left < right) {
+            result.addAll(generateParenthesis(left, right - 1, s + ")"));
+        }
+        if (left > 0) {
+            result.addAll(generateParenthesis(left - 1, right, s + "("));
+        }
+        return result;
+    }
+}

@@ -12,6 +12,7 @@ public class Solution {
             if(i == 0) {
                 start = 0;
             }
+        }
         return s.length() - start;
     }
 }

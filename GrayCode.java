@@ -1,14 +1,11 @@
 //From wiki
 public class Solution {
     public ArrayList<Integer> grayCode(int n) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<Integer> results = new ArrayList<Integer>();
-        int total = (int) Math.pow(2,n);
-        for (int i = 0; i < total; ++i) {
-            results.add((i >> 1) ^ i);
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for (int i = 0; i < 1 << n; ++i) {
+            result.add((i >> 1) ^ i);
         }
-        return results;
+        return result;
     }
 }
 
