@@ -20,6 +20,30 @@ public class Solution {
         return getWordList(s, dp, 0);
     }
     
+    public ArrayList<String> getWordListDP(String s, boolean[][] dp, int index) {
+        int n = s.length();
+        ArrayList<String>[] dpLists = new ArrayList[n + 1];
+        dpLists[0] = new ArrayList<String>();
+        dpLists[0].add("");
+        for (int j = 1; j <= n; ++j) {
+            dpLists[j] = new ArrayList<String>();
+            for (int i = 0; i < j; ++i) {
+                if (checkDp(dp, i) && dp[i][j]) {
+                    for (String word : dpLists[i]) {
+                        if (word.length() > 0) {
+                            word = s.substring(i, j) + " " + word;
+                        }
+                        else {
+                            word = s.substring(i, j);
+                        }
+                        dpLists[j].add(word);
+                    }
+                }
+            }
+        }
+        return dpLists[n];
+    }
+
     public ArrayList<String> getWordList(String s, boolean[][] dp, int index) {
         ArrayList<String> result = new ArrayList<String>();
         int n = s.length();
