@@ -1,23 +1,18 @@
-//O(N)
 public class Solution {
     public boolean isValid(String s) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        Stack<Integer> st = new Stack<Integer>();
+        Stack<Character> st = new Stack<>();
         for (int i = 0; i < s.length(); ++i) {
-            char a = s.charAt(i);
-            if (a == '(' || a == '{' || a == '[') {
-                st.push(i);
-            }
-            else if (!st.isEmpty()) {
-                char b = s.charAt(st.pop());
-                if (!(a == ')' && b == '(') && 
-                    !(a == '}' && b == '{') && 
-                    !(a == ']' && b == '[')) {
+            char c = s.charAt(i);
+            if (c == '{' || c == '(' || c == '[') {
+                st.push(c);
+            } else if (!st.isEmpty()) {
+                char d = st.pop();
+                if (c == '}' && d != '{' || 
+                    c == ')' && d != '(' || 
+                    c == ']' && d != '[') {
                     return false;
                 }
-            }
-            else {
+            } else {
                 return false;
             }
         }

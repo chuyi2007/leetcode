@@ -1,52 +1,35 @@
 public class Solution {
     public boolean isValidSudoku(char[][] board) {
-        Set<Character> set = new HashSet<Character>();
-        int n = board.length;
-        for (int i = 0; i < n; ++i) {
+        int m = board.length, n = board[0].length;
+        for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
+                if (!isPartialValid(board, i, i, 0, n - 1)) {
+                    return false;
+                }
+                if (!isPartialValid(board, 0, m - 1, j, j)) {
+                    return false;
+                }
+            }
+        }
+        for (int i = 0; i * i < m; ++i) {
+            for (int j = 0; j * j < n; ++j) {
+                if (!isPartialValid(board, i * 3, i * 3 + 2, j * 3, j * 3 + 2)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public boolean isPartialValid(char[][] board, int x1, int x2, int y1, int y2) {
+        Set<Character> validation = new HashSet<>();
+        for (int i = x1; i <= x2; ++i) {
+            for (int j = y1; j <= y2; ++j) {
                 if (board[i][j] != '.') {
-                    if (!set.contains(board[i][j])) {
-                    set.add(board[i][j]);
-                    }
-                    else {
+                    if (!validation.add(board[i][j])) {
                         return false;
                     }
                 }
-            }
-            set.clear();
-        }
-        
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (board[j][i] != '.') {
-                    if (!set.contains(board[j][i])) {
-                        set.add(board[j][i]);
-                    }
-                    else {
-                        return false;
-                    }
-                }
-            }
-            set.clear();
-        }
-        
-        int d = (int)Math.sqrt(n);
-        for (int i = 0; i < d; ++i) {
-            for (int j = 0; j < d; ++j) {
-                for (int k = 0; k < d; ++k) {
-                    for (int l = 0; l < d; ++l) {
-                        int x = i * d + k, y = j * d + l;
-                        if (board[x][y] != '.') {
-                            if (!set.contains(board[x][y])) {
-                                set.add(board[x][y]);
-                            }
-                            else {
-                                return false;
-                            }
-                        }
-                    }
-                }
-                set.clear();
             }
         }
         return true;

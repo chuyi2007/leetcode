@@ -12,13 +12,11 @@ public class Solution {
         if (carry == 0) {
             return digits;
         }
-        else {
-            int[] num = new int[digits.length + 1];
-            num[0] = carry;
-            for (int i = 0; i < digits.length; ++i) {
-                num[i + 1] = digits[i];
-            }
-            return num;
+        int[] num = new int[digits.length + 1];
+        num[0] = carry;
+        for (int i = 0; i < digits.length; ++i) {
+            num[i + 1] = digits[i];
         }
+        return num;
     }
 }

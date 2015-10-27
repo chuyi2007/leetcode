@@ -3,7 +3,7 @@ public class Solution {
     public int romanToInt(String s) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> map = new HashMap<>();
         map.put('I', 1);
         map.put('V', 5);
         map.put('X', 10);
@@ -15,11 +15,9 @@ public class Solution {
         int sum = 0;
         for (int i = 0; i < len; ++i) {
             int cur = map.get(s.charAt(i));
-            if (i < len - 1 
-                && map.get(s.charAt(i)) < map.get(s.charAt(i + 1))) {
+            if (i < len - 1 && map.get(s.charAt(i)) < map.get(s.charAt(i + 1))) {
                 sum -= cur;
-            }
-            else {
+            } else {
                 sum +=cur;
             }
         }

@@ -1,37 +1,34 @@
-//careful about overflow
 public class Solution {
-    public int atoi(String str) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        boolean flag = true;
+    public int myAtoi(String str) {
         str = str.trim();
-        if (str.length() < 1) {
-           return 0;
+        if (!validInput(str)) {
+            return 0;
         }
-        if (str.charAt(0) == '-') {
-            flag = false;
-            str = str.substring(1);
-        }
-        else if (str.charAt(0) == '+') {
-            str = str.substring(1);
-        }
-
         int result = 0;
-        for (int i = 0; i < str.length(); ++i) {
-            if (str.charAt(i) >= '0' && str.charAt(i) <= '9') {
-                int val = str.charAt(i) - 48;
-                if (result > (Integer.MAX_VALUE - val) / 10 && flag) {
-                    return Integer.MAX_VALUE;
-                }
-                else if (-result < (Integer.MIN_VALUE + val) / 10 && !flag) {
-                    return Integer.MIN_VALUE;
-                }
-                result = result * 10 + val;
+        boolean isNegative = str.charAt(0) == '-' ? true : false;
+        for (int i = Character.isDigit(str.charAt(0)) ? 0 : 1; i < str.length(); ++i) {
+            if (!Character.isDigit(str.charAt(i))) {
+                return isNegative ? -result : result;
             }
-            else {
-                break;
+            int digit = Character.getNumericValue(str.charAt(i));
+            if (!isNegative && (Integer.MAX_VALUE - digit) / 10 < result ) {
+                return Integer.MAX_VALUE;
+            } else if (isNegative && (Integer.MIN_VALUE + digit) / 10 > -result) {
+                return Integer.MIN_VALUE;
+            } else {
+                result = result * 10 + digit;
             }
         }
-        return flag ? result : -result;
+        return isNegative ? -result : result;
+    }
+    
+    public boolean validInput(String str) {
+        if (str.length() == 0) {
+            return false;
+        } else if (str.length() == 1) {
+            return Character.isDigit(str.charAt(0));
+        } else {
+            return Character.isDigit(str.charAt(0)) || (str.charAt(0) == '+' || str.charAt(0) == '-' && Character.isDigit(str.charAt(1)));
+        }
     }
 }

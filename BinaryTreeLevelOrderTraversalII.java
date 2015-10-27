@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -8,29 +8,33 @@
  * }
  */
 public class Solution {
-    public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
-        ArrayList<ArrayList<Integer>> allLevels = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> oneLevel = new ArrayList<Integer>();
-        Queue<TreeNode> curLevel = new LinkedList<TreeNode>();
-        curLevel.offer(root);
-        Queue<TreeNode> nextLevel = new LinkedList<TreeNode>();
-        while (!curLevel.isEmpty() && curLevel.peek() != null) {
-            TreeNode node = curLevel.poll();
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.offer(root);
+        int count = 1;
+        int nextCount = 0;
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> currentLevel = new ArrayList<>();
+        while(!q.isEmpty() && q.peek() != null) {
+            TreeNode node = q.poll();
             if (node.left != null) {
-                nextLevel.offer(node.left);
+                nextCount++;
+                q.offer(node.left);
             }
             if (node.right != null) {
-                nextLevel.offer(node.right);
+                nextCount++;
+                q.offer(node.right);
             }
-            oneLevel.add(node.val);
-            if (curLevel.isEmpty()) {
-                curLevel = nextLevel;
-                nextLevel = new LinkedList<TreeNode>();
-                allLevels.add(0, oneLevel);
-                oneLevel = new ArrayList<Integer>();
+            count--;
+            currentLevel.add(node.val);
+            if (count == 0) {
+                result.add(0, currentLevel);
+                currentLevel = new ArrayList<>();
+                count = nextCount;
+                nextCount = 0;
             }
         }
-        return allLevels;
+        return result;
     }
 }
 
@@ -52,8 +56,7 @@ public class Solution {
     public int getMaxLevel(TreeNode root) {
         if (root!= null) {
             return Math.max(getMaxLevel(root.left), getMaxLevel(root.right)) + 1;
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -63,8 +66,7 @@ public class Solution {
             if (level > 0) {
                 findSameLevel(root.left, level - 1, result);
                 findSameLevel(root.right, level - 1, result);
-            }
-            else {
+            } else {
                 result.add(root.val);
             }
         }

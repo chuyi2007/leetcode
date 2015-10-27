@@ -14,8 +14,7 @@ public class Solution {
         }
         if (Math.abs(getHeight(root.left) - getHeight(root.right)) > 1) {
             return false;
-        }
-        else {
+        } else {
             return isBalanced(root.left) && isBalanced(root.right);
         }
     }
