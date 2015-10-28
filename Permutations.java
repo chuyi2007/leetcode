@@ -1,26 +1,27 @@
 public class Solution {
-    public ArrayList<ArrayList<Integer>> permute(int[] num) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        boolean[] set = new boolean[num.length];
-        backTracking(results, result, num, set, 0);
-        return results;
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> allPermutations = new ArrayList<>();
+        permute(allPermutations, new ArrayList<Integer>(), nums, new boolean[nums.length], 0);
+        return allPermutations;
     }
-    public void backTracking(ArrayList<ArrayList<Integer>> results, 
-    ArrayList<Integer> result, int[] num, boolean[] set, int count) {
-        if (count == num.length) {
-            results.add(new ArrayList<Integer>(result));
-        }
-        else{
-            for (int i = 0; i < num.length; ++i) {
-                if (!set[i]) {
-                    set[i] = true;
-                    result.add(num[i]);
-                    backTracking(results, result, num, set, count + 1);
-                    result.remove(result.size() - 1);
-                    set[i] = false;
+    
+    public void permute(
+        List<List<Integer>> allPermutations, 
+        List<Integer> current, 
+        int[] nums, 
+        boolean[] visited,
+        int level
+    ) {
+        if (level == nums.length) {
+            allPermutations.add(new ArrayList<Integer>(current));
+        } else {
+            for (int i = 0; i < nums.length; ++i) {
+                if (!visited[i]) {
+                    visited[i] = true;
+                    current.add(nums[i]);
+                    permute(allPermutations, current, nums, visited, level + 1);
+                    current.remove(current.size() - 1);
+                    visited[i] = false;
                 }
             }
         }

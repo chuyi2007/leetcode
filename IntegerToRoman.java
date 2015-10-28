@@ -1,41 +1,15 @@
-//O(N)
 public class Solution {
     public String intToRoman(int num) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        HashMap<Integer, String> map = new HashMap<Integer, String>();
-        map.put(1, "I");
-        map.put(5, "V");
-        map.put(10, "X");
-        map.put(50, "L");
-        map.put(100, "C");
-        map.put(500, "D");
-        map.put(1000, "M");
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] romanNumerals = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
         
-        int remains = num;
-        String result = "";
-        int base = 1000;
-        while (remains > 0) {
-            int q = remains/base;
-            if (q >= 9) {
-                result += map.get(base) + map.get(base * 10);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.length; ++i) {
+            while (num >= values[i]) {
+                sb.append(romanNumerals[i]);
+                num -= values[i];
             }
-            else if (q >= 5) {
-                result += map.get(base * 5);
-                for (int i = 0; i < q - 5; ++i) {
-                    result += map.get(base);
-                }
-            }
-            else if (q >= 4) {
-                result += map.get(base) + map.get(base * 5);
-            }
-            else if (q >= 1) {
-                for(int i = 0; i < q; ++i)
-                    result += map.get(base);
-            }
-            remains %= base;
-            base /= 10;
         }
-        return result;
+        return sb.toString();
     }
 }

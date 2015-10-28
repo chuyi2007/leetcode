@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -8,25 +8,29 @@
  * }
  */
 public class Solution {
-    public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
-        ArrayList<ArrayList<Integer>> results = 
-            new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> path = new ArrayList<Integer>();
-        pathSum(root, sum, path, results);
-        return results;
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> paths = new ArrayList<>();
+        List<Integer> possiblePath = new ArrayList<>();
+        pathSum(paths, possiblePath, root, sum);
+        return paths;
     }
     
-    public void pathSum(TreeNode root, int sum, ArrayList<Integer> path, 
-    ArrayList<ArrayList<Integer>> results) {
-        if (root != null) {
-            sum -= root.val;
-            path.add(root.val);
-            if (sum == 0 && root.left == null && root.right == null) {
-                results.add(new ArrayList<Integer>(path));
-            }
-            pathSum(root.left, sum, path, results);
-            pathSum(root.right, sum, path, results);
-            path.remove(path.size() - 1);
+    public void pathSum(
+        List<List<Integer>> paths,
+        List<Integer> possiblePath,
+        TreeNode node,
+        int sum
+    ) {
+        if (node == null) {
+            return;
         }
+        possiblePath.add(node.val);
+	sum -= node.val;
+        if (node.left == null && node.right == null && sum == 0) {
+            paths.add(new ArrayList<>(possiblePath));
+        }
+        pathSum(paths, possiblePath, node.left, sum);
+        pathSum(paths, possiblePath, node.right, sum);
+        possiblePath.remove(possiblePath.size() - 1);
     }
 }

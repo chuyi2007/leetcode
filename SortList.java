@@ -1,59 +1,59 @@
 /**
  * Definition for singly-linked list.
- * class ListNode {
+ * public class ListNode {
  *     int val;
  *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
+ *     ListNode(int x) { val = x; }
  * }
  */
 public class Solution {
     public ListNode sortList(ListNode head) {
-        int len = 0;
-        ListNode cur = head;
-        while (cur != null) {
-            cur = cur.next;
-            ++len;
+        if (head == null) {
+            return null;
         }
-        if (len <= 1) {
+        ListNode cur = head;
+        int len = 0;
+        while (cur != null) {
+            ++len;
+            cur = cur.next;
+        }
+        if (len == 1) {
             return head;
         }
-        ListNode[] nodes = splitList(head, len);
-        ListNode left = sortList(nodes[0]);
-        ListNode right = sortList(nodes[1]);
+        ListNode mid = findMid(head, len / 2);
+        ListNode left = sortList(head);
+        ListNode right = sortList(mid);
         return mergeSort(left, right);
     }
     
     public ListNode mergeSort(ListNode left, ListNode right) {
-        ListNode sen = new ListNode(0);
-        ListNode pre = sen;
+        ListNode sentinel = new ListNode(0);
+        ListNode pre = sentinel;
         while (left != null && right != null) {
-            if (left.val > right.val) {
-                pre.next = right;
-                right = right.next;
-            }
-            else {
+            ListNode next;
+            if (left.val < right.val) {
+                next = left.next;
                 pre.next = left;
-                left = left.next;
+                left.next = null;
+                left = next;
+            } else {
+                next = right.next;
+                pre.next = right;
+                right.next = null;
+                right = next;
             }
             pre = pre.next;
         }
-        pre.next = left == null ? right : left;
-        return sen.next;
+        pre.next = left != null ? left : right;
+        return sentinel.next;
     }
     
-    public ListNode[] splitList(ListNode head, int len) {
-        ListNode[] nodes = new ListNode[2];
-        ListNode cur = head;
-        int mid = len / 2;
-        for (int i = 0; i < mid - 1; ++i) {
-            cur = cur.next;
+    public ListNode findMid(ListNode head, int len) {
+        while (len-- > 1) {
+            head = head.next;
         }
-        nodes[0] = head;
-        nodes[1] = cur.next;
-        cur.next = null;
-        return nodes;
+        ListNode next = head.next;
+        head.next = null;
+        return next;
     }
 }

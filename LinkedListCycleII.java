@@ -11,29 +11,20 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        // IMPORTANT: Please reset any member data you declared, as
-        // the same Solution instance will be reused for each test case.
-        ListNode faster = head, slower = head;
-        boolean flag = false;
-        while (faster != null && faster.next != null && slower != null) {
-            faster = faster.next.next;
-            slower = slower.next;
-            if (faster == slower && faster != null) {
-                flag = true;
+        ListNode fast = head, slow = head;
+        while (slow != null && fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
                 break;
             }
         }
-        if (!flag) {
+        if (fast == null || fast.next == null) {
             return null;
         }
-        while (true) {
-            if (head != slower) {
-                head = head.next;
-                slower = slower.next;
-            }
-            else {
-                break;
-            }
+        while (head != slow) {
+            head = head.next;
+            slow = slow.next;
         }
         return head;
     }

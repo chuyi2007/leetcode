@@ -3,36 +3,26 @@
  * public class ListNode {
  *     int val;
  *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
+ *     ListNode(int x) { val = x; }
  * }
  */
-//O(N)
 public class Solution {
     public ListNode swapPairs(ListNode head) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         if (head == null) {
-            return head;
+            return null;
         }
         ListNode sen = new ListNode(0);
         sen.next = head;
-        ListNode prepre = sen, pre = head, cur = head.next;
+        ListNode pre = sen, cur = head;
         while (cur != null) {
             ListNode next = cur.next;
-            prepre.next = cur;
-            cur.next = pre;
-            pre.next = next;
             if (next != null) {
-                prepre = pre;
-                pre = next;
-                cur = next.next;
+                pre.next = next;
+                cur.next = next.next;
+                next.next = cur;
             }
-            else {
-                break;
-            }
+            pre = cur;
+            cur = cur.next;
         }
         return sen.next;
     }

@@ -1,4 +1,5 @@
-//O(M * N)
+// O(M * N)
+// Or use combination
 public class Solution {
     public int uniquePaths(int m, int n) {
         // Start typing your Java solution below

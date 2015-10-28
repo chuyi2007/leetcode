@@ -11,8 +11,7 @@ public class Solution {
         if (root != null) {
             if (root.left != null && root.right != null) {
                 root.left.next = root.right;
-            }
-            else if (root.left != null) {
+            } else if (root.left != null) {
                 root.left.next = connectToRight(root.next);
             }
             

@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -8,32 +8,20 @@
  * }
  */
 public class Solution {
-    public ArrayList<Integer> preorderTraversal(TreeNode root) {
-        // IMPORTANT: Please reset any member data you declared, as
-        // the same Solution instance will be reused for each test case.
-        ArrayList<Integer> sortedList = new ArrayList<Integer>();
-        
-        Stack<TreeNode> st = new Stack<TreeNode>();
-        st.push(root);
-        
-        while (!st.isEmpty() && st.peek() != null) {
-            TreeNode node = st.pop();
-            if (node.left == null && node.right == null) {
-                sortedList.add(node.val);
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode node = root;
+        while (node != null) {
+            result.add(node.val);
+            if (node.right != null) {
+                st.push(node.right);
             }
-            else {
-                if (node.right != null) {
-                    st.push(node.right);
-                }
-                if (node.left != null) {
-                    st.push(node.left);
-                }
-                st.push(node);
+            node = node.left;
+            if (node == null && !st.isEmpty()) {
+                node = st.pop();
             }
-            node.left = null;
-            node.right = null;
         }
-        
-        return sortedList;
+        return result;
     }
 }

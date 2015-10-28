@@ -1,30 +1,30 @@
 public class Solution {
-    public void nextPermutation(int[] num) {
-        int index = -1;
-        for (int i = num.length - 1; i > 0; --i) {
-            if (num[i] > num[i - 1]) {
-                index = i - 1;
+    public void nextPermutation(int[] nums) {
+        int pivot = -1;
+        for (int i = nums.length - 1; i > 0; --i) {
+            if (nums[i] > nums[i - 1]) {
+                pivot = i - 1;
                 break;
             }
         }
         
-        if (index != -1) {
-            for (int i = num.length - 1; i > index; --i) {
-                if (num[i] > num[index]) {
-                    swap(num, i, index);
+        if (pivot != -1) {
+            for (int i = nums.length - 1; i > pivot; --i) {
+                if (nums[i] > nums[pivot]) {
+                    swap(nums, i, pivot);
                     break;
                 }
             }
         }
         
-        for (int i = num.length - 1, j = index + 1; i > j;) {
-            swap(num, i--, j++);
+        for (int i = nums.length - 1, j = pivot + 1; i > j; --i, ++j) {
+            swap(nums, i, j);
         }
     }
     
-    public void swap(int[] num, int i, int j) {
-        int tmp = num[i];
-        num[i] = num[j];
-        num[j] = tmp;
+    public void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }

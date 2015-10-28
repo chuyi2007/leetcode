@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -7,27 +7,23 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//O(N)
 public class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         if (inorder.length == 0) {
             return null;
         }
-        int val = postorder[postorder.length - 1];
-        int index = 0;
-        for (int i = 0; i < inorder.length; ++i) {
-            if (inorder[i] == val) {
-                index = i;
+        int n = postorder.length;
+        int cur = postorder[n - 1];
+        int pivot = 0;
+        for (int i = 0; i < n; ++i) {
+            if (cur == inorder[i]) {
+                pivot = i;
                 break;
             }
         }
-        TreeNode node = new TreeNode(val);
-        node.left = buildTree(Arrays.copyOfRange(inorder, 0, index), 
-        Arrays.copyOfRange(postorder, 0, index));
-        node.right = buildTree(Arrays.copyOfRange(inorder, index + 1, inorder.length),
-        Arrays.copyOfRange(postorder, index, postorder.length - 1));
+        TreeNode node = new TreeNode(cur);
+        node.left = buildTree(Arrays.copyOfRange(inorder, 0, pivot), Arrays.copyOfRange(postorder, 0, pivot));
+        node.right = buildTree(Arrays.copyOfRange(inorder, pivot + 1, n), Arrays.copyOfRange(postorder, pivot, n - 1));
         return node;
-    }  
+    }
 }

@@ -3,11 +3,11 @@
  * public class ListNode {
  *     int val;
  *     ListNode next;
- *     ListNode(int x) { val = x; next = null; }
+ *     ListNode(int x) { val = x; }
  * }
  */
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -15,34 +15,29 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//O(N)
 public class Solution {
+    ListNode cur = null;
     public TreeNode sortedListToBST(ListNode head) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int size = 0;
-        ListNode cur = head;
-        while (cur != null) {
-            ++size;
-            cur = cur.next;
+        cur = head;
+        int n = 0;
+        while (head != null){
+            ++n;
+            head = head.next;
         }
-        ListNode[] wrapper = new ListNode[1];
-        wrapper[0] = head;
-        return sortedListToBST(wrapper, 0, size - 1);
+        return sortedListToBST(0, n - 1);
     }
     
-    public TreeNode sortedListToBST(ListNode[] head, int min, int max) {
-        if (min <= max) {
-            int mid = (max + min) / 2;
-            TreeNode leftTree = sortedListToBST(head, min, mid - 1);
-            TreeNode midTree = new TreeNode(head[0].val);
-            head[0] = head[0].next;
-            midTree.left = leftTree;
-            midTree.right = sortedListToBST(head, mid + 1, max);
-            return midTree;
-        }
-        else {
+    public TreeNode sortedListToBST(int min, int max) {
+        if (max < min) {
             return null;
         }
+        int mid = min + (max - min) / 2;
+        TreeNode left = sortedListToBST(min, mid - 1);
+        TreeNode node = new TreeNode(cur.val);
+        cur = cur.next;
+        TreeNode right = sortedListToBST(mid + 1, max);
+        node.left = left;
+        node.right = right;
+        return node;
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -7,24 +7,19 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//O(N)
 public class Solution {
     public boolean isValidBST(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         return isValidBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
     
-    public boolean isValidBST(TreeNode node, int min, int max){
-        if (node != null) {
-            if (node.val > min && node.val < max) {
-                return isValidBST(node.left, min, node.val)
-                && isValidBST(node.right, node.val, max);
-            }
-            else {
-                return false;
-            }
+    public boolean isValidBST(TreeNode node, long min, long max) {
+        if (node == null) {
+            return true;
         }
-        return true;
+        if (node.val < min || node.val > max) {
+            return false;
+        }
+        return isValidBST(node.left, min, (long) node.val - 1) &&
+                isValidBST(node.right, (long) node.val + 1, max);
     }
 }

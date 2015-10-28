@@ -1,46 +1,47 @@
-//backTracking solution, O(N!/K!)
 public class Solution {
-    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        combine(n, k, 1, result, results);
-        return results;
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> combinations = new ArrayList<>();
+        List<Integer> singleCombination = new ArrayList<>();
+        combine(combinations, singleCombination, n, k, 1);
+        return combinations;
     }
     
-    public void combine(int n, int k, int index,
-                        ArrayList<Integer> result, 
-                        ArrayList<ArrayList<Integer>> results){
-        for (int i = index; i <= n; ++i) {
-            result.add(i);
+    public void combine(
+        List<List<Integer>> combinations,
+        List<Integer> singleCombination,
+        int n,
+        int k,
+        int level
+    ) {
+        for (int i = level; i <= n; ++i) {
+            singleCombination.add(i);
             if (k > 1) {
-                combine(n, k - 1, i + 1, result, results);
+                combine(combinations, singleCombination, n, k - 1, i + 1);
             }
             else {
-                results.add(new ArrayList<Integer>(result));
+                combinations.add(new ArrayList<>(singleCombination));
             }
-            result.remove(result.size() - 1);
+            singleCombination.remove(singleCombination.size() - 1);
         }
     }
 }
 
 //recursion, O(N!/K!)
 public class Solution {
-    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
+    public List<List<Integer>> combine(int n, int k) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
+        List<List<Integer>> results = new ArrayList<>();
         if (k == 1) {
             for (int i = n; i > 0; --i) {
-                ArrayList<Integer> result = new ArrayList<Integer>();
+                List<Integer> result = new ArrayList<>();
                 result.add(i);
                 results.add(result);
             }
         }
         else {
             for (int i = n; i > 0; --i) {
-                for (ArrayList<Integer> result: combine(i - 1, k - 1)) {
+                for (List<Integer> result: combine(i - 1, k - 1)) {
                     result.add(i);
                     results.add(result);
                 }

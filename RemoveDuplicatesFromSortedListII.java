@@ -14,9 +14,9 @@ public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        ListNode sen = new ListNode(0);
-        sen.next = head;
-        ListNode pre = sen;
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = head;
+        ListNode pre = sentinel;
         while (head != null && head.next != null) {
             if (head.val == head.next.val) {
                 ListNode cur = head.next;
@@ -31,6 +31,6 @@ public class Solution {
                 head = head.next;
             }
         }
-        return sen.next;
+        return sentinel.next;
     }
 }

@@ -1,30 +1,26 @@
-//O(N^k), where target is N, k is number of candidates
 public class Solution {
-    public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> bt = new ArrayList<Integer>();
-        bt.add(0);
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> combinations = new ArrayList<>();
+        List<Integer> possibleCombination = new ArrayList<>();
         Arrays.sort(candidates);
-        combinationSum(candidates, target, 0, bt, results);
-        return results;
+        combinationsSum(combinations, possibleCombination, candidates, target, 0);
+        return combinations;
     }
     
-    public void combinationSum(int[] candidates, int target, int index, ArrayList<Integer> bt,
-                               ArrayList<ArrayList<Integer>> results) {
+    public void combinationsSum(
+        List<List<Integer>> combinations,
+        List<Integer> possibleCombination,
+        int[] candidates,
+        int target,
+        int level
+    ) {
         if (target == 0) {
-            ArrayList<Integer> result = new ArrayList<Integer>();
-            for (int i = 1; i < bt.size(); ++i) {
-                result.add(candidates[bt.get(i)]);
-            }
-            results.add(result);
-        }
-        else if (target > 0) {
-            for (int i = bt.get(index); i < candidates.length; ++i) {
-                bt.add(i);
-                combinationSum(candidates, target - candidates[i], index + 1, bt, results);
-                bt.remove(bt.size() - 1);
+            combinations.add(new ArrayList<Integer>(possibleCombination));
+        } else if (target > 0) {
+            for (int i = level; i < candidates.length; ++i) {
+                possibleCombination.add(candidates[i]);
+                combinationsSum(combinations, possibleCombination, candidates, target - candidates[i], i);
+                possibleCombination.remove(possibleCombination.size() - 1);
             }
         }
     }

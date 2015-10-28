@@ -1,34 +1,31 @@
 public class Solution {
-    public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<ArrayList<Integer>> results
-            = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> result 
-            = new ArrayList<Integer>();
-        boolean[] set = new boolean[num.length];
-        Arrays.sort(num);
-        permuteUnique(results, result, set, num, 0);
-        return results;
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> permutations = new ArrayList<>();
+        List<Integer> possiblePermutation = new ArrayList<>();
+        boolean[] visited = new boolean[nums.length];
+        Arrays.sort(nums);
+        permuteUnique(permutations, possiblePermutation, nums, visited, 0);
+        return permutations;
     }
     
-    public void permuteUnique(ArrayList<ArrayList<Integer>> results, 
-                                ArrayList<Integer> result, 
-                                boolean[] set, 
-                                int[] num, 
-                                int count) {
-        if(count == num.length){
-            results.add(new ArrayList<Integer>(result));
-        }
-        else{
-            for (int i = 0; i < num.length; ++i) {
-                if (!set[i]) {
-                    set[i] = true;
-                    result.add(num[i]);
-                    permuteUnique(results, result, set, num, count + 1);
-                    result.remove(result.size() - 1);
-                    set[i] = false;
-                    while(i < num.length - 1 && num[i] == num[i + 1]) {
+    public void permuteUnique(
+        List<List<Integer>> permutations,
+        List<Integer> possiblePermutation,
+        int[] nums,
+        boolean[] visited,
+        int level
+    ) {
+        if (level == nums.length) {
+            permutations.add(new ArrayList<>(possiblePermutation));
+        } else if (level < nums.length) {
+            for (int i = 0; i < nums.length; ++i) {
+                if (!visited[i]) {
+                    visited[i] = true;
+                    possiblePermutation.add(nums[i]);
+                    permuteUnique(permutations, possiblePermutation, nums, visited, level + 1);
+                    possiblePermutation.remove(possiblePermutation.size() - 1);
+                    visited[i] = false;
+                    while (i < nums.length - 1 && nums[i] == nums[i + 1]) {
                         ++i;
                     }
                 }

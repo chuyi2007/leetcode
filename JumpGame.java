@@ -1,13 +1,12 @@
 public class Solution {
-    public boolean canJump(int[] A) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int marker = A.length - 1;
-        for (int i = A.length - 1; i >= 0; --i) {
-            if (i + A[i] >= marker) {
-                marker = i;
+    public boolean canJump(int[] nums) {
+        int mark = nums.length - 1;
+        for (int i = nums.length - 1; i >= 0; --i) {
+            int jumpDist = i + nums[i];
+            if (jumpDist >= mark) {
+                mark = i;
             }
         }
-        return marker == 0;
+        return mark == 0;
     }
 }

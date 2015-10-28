@@ -11,11 +11,11 @@ public class Solution {
         return total;
     }
     public int singleTrade(int[] prices, int start, int end) {
-        int max = 0;
-        int low = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        int minStock = Integer.MAX_VALUE;
         for (int j = start; j < end; ++j) {
-            low = Math.min(low, prices[j]);
-            max = Math.max(max, prices[j] - low);
+            minStock = Math.min(minStock, prices[j]);
+            maxProfit = Math.max(maxProfit, prices[j] - minStock);
         }
         return max;
     }

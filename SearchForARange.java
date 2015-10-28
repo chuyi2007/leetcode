@@ -1,31 +1,23 @@
 public class Solution {
-    public int[] searchRange(int[] A, int target) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int[] index = {-1, -1};
-        int first = binarySearch(A, target - 1);
-        int second = binarySearch(A, target);
-        if (second == -1 || A[second] != target) {
-            return index;
+    public int[] searchRange(int[] nums, int target) {
+        int first = binarySearch(nums, target - 1);
+        int second = binarySearch(nums, target);
+        if (first == second) {
+            return new int[]{-1, -1};
         }
-        index[0] = first + 1;
-        index[1] = second;
-        return index;
+        return new int[]{first, second - 1};
     }
     
-    public int binarySearch(int[] A, int target) {
-        int min = 0, max = A.length - 1;
-        int index = -1;
-        while (max >= min) {
-            int mid = (max + min) / 2;
-            if (A[mid] > target) { 
+    public int binarySearch(int[] nums, int target) {
+        int min = 0, max = nums.length - 1;
+        while (min <= max) {
+            int mid = (min + max) / 2;
+            if (nums[mid] > target) {
                 max = mid - 1;
-            }
-            else {
-                index = mid;
+            } else {
                 min = mid + 1;
             }
         }
-        return index;
+        return min;
     }
 }

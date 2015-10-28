@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -9,10 +9,13 @@
  */
 public class Solution {
     public void flatten(TreeNode root) {
-        Stack<TreeNode> st = new Stack<TreeNode>();
-        st.push(root);
+        if (root == null) {
+            return;
+        }
         TreeNode cur = root;
-        while (!st.isEmpty() && st.peek() != null) {
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        while (!st.isEmpty()) {
             TreeNode node = st.pop();
             if (node.right != null) {
                 st.push(node.right);

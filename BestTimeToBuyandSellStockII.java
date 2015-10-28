@@ -1,22 +1,19 @@
-//O(N)
 public class Solution {
     public int maxProfit(int[] prices) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int cur = -1;
-        int val = 0;
-        for (int i = 0; i < prices.length - 1; i++) {
-            if (prices[i] < prices[i + 1] && cur == -1) {
-                cur = prices[i];
+        int curStock = -1;
+        int profit = 0;
+        for (int i = 0; i < prices.length - 1; ++i) {
+            if (prices[i] < prices[i + 1] && curStock == -1) {
+                curStock = prices[i];
             }
-            if (prices[i] > prices[i + 1] && cur != -1) {
-                val += prices[i] - cur;
-                cur = -1;
+            if (prices[i] >= prices[i + 1] && curStock != -1) {
+                profit += prices[i] - curStock;
+                curStock = -1;
             }
         }
-        if (cur != -1) {
-            val += prices[prices.length - 1] - cur;
+        if (curStock != -1 && prices[prices.length - 1] > curStock) {
+            profit += prices[prices.length - 1] - curStock;
         }
-        return val;
+        return profit;
     }
 }

@@ -1,36 +1,38 @@
-//O(N)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
 public class Solution {
-    public ListNode rotateRight(ListNode head, int n) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
+    public ListNode rotateRight(ListNode head, int k) {
+        int len = 0;
         ListNode cur = head;
-        if (cur == null || n == 0) {
-            return head;
-        }
-        int size = 0;
         while (cur != null) {
+            ++len;
             cur = cur.next;
-            ++size;
         }
-        int k = n % size;
-        if (k == 0) {
-            return head;
+        if (len == 0) {
+            return null;
         }
-        k = size - k;
+        k = len - k % len;
         cur = head;
-        ListNode pre = null;
-        while (cur.next != null) {
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = cur;
+        ListNode pre = sentinel;
+        while (k > 0) {
+            pre = pre.next;
             --k;
-            if (k == 0) {
-                pre = cur.next;
-                cur.next = null;
-                cur = pre;
-            }
-            else {
-                cur = cur.next;
-            }
         }
-        cur.next = head;
-        return pre;
+        sentinel.next = pre.next;
+        pre.next = null;
+        pre = sentinel;
+        while (pre.next != null) {
+            pre = pre.next;
+        }
+        pre.next = head;
+        return sentinel.next;
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -15,20 +15,16 @@ public class Solution {
         return sumNumbers(root, 0);
     }
     
-    public int sumNumbers(TreeNode node, int value) {
-        if (node.left == null && node.right == null) {
-            return value * 10 + node.val;
+    public int sumNumbers(TreeNode root, int pre) {
+        int sum = root.val + pre * 10;
+        if (root.left == null && root.right == null) {
+            return sum;
         }
-        
-        int sum = 0;
-        if (node.left != null) {
-            sum += sumNumbers(node.left, value * 10 + node.val);
-        }
-        
-        if (node.right != null) {
-            sum += sumNumbers(node.right, value * 10 + node.val);
-        }
-        
-        return sum;
+        int left = 0, right = 0;
+        if (root.left != null)
+            left = sumNumbers(root.left, sum);
+        if (root.right != null)
+            right = sumNumbers(root.right, sum);
+        return left + right;
     }
 }
