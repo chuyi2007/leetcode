@@ -8,33 +8,27 @@
  * }
  */
 public class Solution {
-    public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int size = intervals.size();
-        int s = -1, e = -1;
-        for (int i = 0; i < size; ++i) {
-            if (s == -1 && intervals.get(i).end >= newInterval.start) {
-                s = i;
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        int startIndex = -1, endIndex = -1;
+        for (int i = 0; i < intervals.size(); ++i) {
+            if (startIndex == -1 && newInterval.start <= intervals.get(i).end) {
+                startIndex = i;
             }
-            if (intervals.get(i).start <= newInterval.end) {
-                e = i;
+            if (newInterval.end >= intervals.get(i).start) {
+                endIndex = i;
             }
         }
-        if (s == -1) {
+        
+        if (startIndex == -1) {
             intervals.add(newInterval);
-            return intervals;
-        }
-        if (e == -1) {
+        } else if (endIndex == -1) {
             intervals.add(0, newInterval);
-            return intervals;
+        } else {
+            Interval tmp = new Interval(Math.min(intervals.get(startIndex).start, newInterval.start), 
+                                        Math.max(intervals.get(endIndex).end, newInterval.end));
+            intervals.subList(startIndex, endIndex + 1).clear();
+            intervals.add(startIndex, tmp);
         }
-        //if(s == e)    return intervals;
-        int f = Math.min(intervals.get(s).start, newInterval.start);
-        int l = Math.max(intervals.get(e).end, newInterval.end);
-        newInterval = new Interval(f, l);
-        intervals.subList(s, e + 1).clear();
-        intervals.add(s, newInterval);
         return intervals;
     }
 }

@@ -1,28 +1,33 @@
 //Dynamic Programming, O(N)
 public class Solution {
     public int numDecodings(String s) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        HashSet<String> code = new HashSet<String>();
-        for(int i = 1; i <=26; ++i)
-            code.add(String.valueOf(i));
-        if(s.length() < 1)
+        if (s.length() == 0 || s.startsWith("0")) {
             return 0;
-        int f1 = code.contains(s.substring(0, 1)) ? 1 : 0;
-        if(s.length() < 2)
-            return f1;
-        int f2 = (code.contains(s.substring(0, 2)) ? 1 : 0) 
-                + (code.contains(s.substring(1, 2)) ? f1 : 0);
-        int f3 = f2;
-        for (int i = 2; i < s.length(); ++i) {
-            f3 = (code.contains(s.substring(i, i + 1)) ? f2 : 0)
-                + (code.contains(s.substring(i - 1, i + 1)) ? f1 : 0);
-            f1 = f2;
-            f2 = f3;
         }
-        return f3;
+        int f0 = validCode(s.substring(0, 1)) ? 1 : 0;
+        if (s.length() == 1) {
+            return f0;
+        }
+        int f1 = (validCode(s.substring(0, 2)) ? 1 : 0) + (validCode(s.substring(1, 2)) ? f0 : 0);
+        int f2 = f1;
+        for (int i = 2; i < s.length(); ++i) {
+            f2 = (validCode(s.substring(i - 1, i + 1)) ? f0 : 0) + 
+                (validCode(s.substring(i, i + 1)) ? f1 : 0);
+            f0 = f1;
+            f1 = f2;
+        }
+        return f2;
+    }
+    
+    public boolean validCode(String s) {
+        if (s.charAt(0) == '0') {
+            return false;
+        }
+        int code = Integer.parseInt(s);
+        return code > 0 && code <= 26;
     }
 }
+
 //Recursive, O(N^2)
 public class Solution {
     public int numDecodings(String s) {

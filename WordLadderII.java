@@ -1,72 +1,84 @@
 public class Solution {
-    public ArrayList<ArrayList<String>> findLadders(String start, String end, HashSet<String> dict) {
-        Queue<String> startQueue = new LinkedList<String>();
-        startQueue.offer(start);
-        Set<String> startVisited = new HashSet<String>();
-        startVisited.add(start);
-        Set<String> startSub = new HashSet<String>();
+    public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
+        // Store the minimum steps required to a specific word
+        Map<String, Integer> wordToStep = new HashMap<>();
+        for (String w: wordList) {
+            wordToStep.put(w, Integer.MAX_VALUE);
+        }
+        wordToStep.put(beginWord, 0);
+        wordToStep.put(endWord, Integer.MAX_VALUE);
         
-        ArrayList<String> first = new ArrayList<String>();
-        first.add(start);
-        Queue<ArrayList<String>> children = new LinkedList<ArrayList<String>>();
-        children.add(first);
+        // The queue for BFS
+        Queue<String> q = new LinkedList<>();
+        q.offer(beginWord);
         
-        int thisLevel = 1, nextLevel = 0;
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+        // Store the neigbors for a given word, backward
+        Map<String, List<String>> neighbors = new HashMap<>();
         
-        boolean found = false;
-        while (!startQueue.isEmpty()) {
-            String word = startQueue.poll();
-            ArrayList<String> child = children.poll();
-            --thisLevel;
-            
-            if (end.equals(word)) {
-                result.add(child);
-                found = true;
+        // The step for each level (BFS level)
+        int step = 0;
+        
+        // Minimum step required to reach the end point (endWord)
+        int minimumStep = Integer.MAX_VALUE;
+        
+        while (!q.isEmpty()) {
+            String word = q.poll();
+            step = wordToStep.get(word) + 1;
+            if (step > minimumStep) {
+                break;
             }
-            else {
-                List<String> replList = getNextLadders(dict, startVisited, startSub, word);
-                for (String repl: replList) {
-                    startQueue.offer(repl);
-                    startVisited.add(repl);
-                    startSub.add(repl);
+            
+            for (int i = 0; i < word.length(); ++i) {
+                StringBuilder tmp = new StringBuilder(word);
+                for (char c = 'a'; c <= 'z'; ++c) {
+                    tmp.setCharAt(i, c);
+                    String tmpW = tmp.toString();
+                    if (!wordToStep.containsKey(tmpW) || word.equals(tmpW)) {
+                        continue;
+                    }
+                    // This means we do not have to add the word since it will take more steps to reach word then the previous stored steps
+                    if (step > wordToStep.get(tmpW)) {
+                        continue;
+                    } else if (step < wordToStep.get(tmpW)) { // find a shorter path for this word
+                        wordToStep.put(tmpW, step + 1);
+                        q.offer(tmpW);
+                    } // if equal, we don't need to put it again, but we still need it to build the graph
                     
-                    //add paths / many duplicates
-                    ArrayList<String> newChild = new ArrayList<String>(child);
-                    newChild.add(repl);
-                    children.offer(newChild);
-                        
-                    ++nextLevel;
-                }
-            }
-            
-            if (thisLevel == 0) {
-                thisLevel = nextLevel;
-                nextLevel = 0;
-                startSub.clear();
-                if (found) {
-                    break;
+                    if (!neighbors.containsKey(tmpW)) {
+                        neighbors.put(tmpW, new ArrayList<>());
+                    }
+                    neighbors.get(tmpW).add(word);
+                    if (tmpW.equals(endWord)) {
+                        minimumStep = step;
+                    }
                 }
             }
         }
-        return result;
+        
+        // Start with the end of the map to build the List of words
+        List<List<String>> res = new ArrayList<>();
+        List<String> path = new LinkedList<>();
+        backTrack(res, path, beginWord, endWord, neighbors);
+        return res;
     }
     
-    public List<String> getNextLadders(HashSet<String> dict, 
-                                        Set<String> visited, 
-                                        Set<String> sub, String word) {
-        List<String> replList = new ArrayList<String>();
-        for (int i = 0; i < word.length(); ++i) {
-            for (int j = 0; j < 26; ++j) {
-                char[] chars = word.toCharArray();
-                chars[i] = (char) (97 + j);
-                String repl = new String(chars);
-                if (dict.contains(repl) 
-                    && (!visited.contains(repl) || sub.contains(repl))) {
-                    replList.add(repl);
-                }
+    public void backTrack(
+        List<List<String>> res,
+        List<String> path,
+        String beginWord,
+        String curWord,
+        Map<String, List<String>> neighbors
+    ) {
+        if (beginWord.equals(curWord)) {
+            path.add(0, beginWord);
+            res.add(new ArrayList<>(path));
+            path.remove(0);
+        } else if (neighbors.containsKey(curWord)) {
+            for (String neighbor: neighbors.get(curWord)) {
+                path.add(0, curWord);
+                backTrack(res, path, beginWord, neighbor, neighbors);
+                path.remove(0);
             }
         }
-        return replList;
     }
 }

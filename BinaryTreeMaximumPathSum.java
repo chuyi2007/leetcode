@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -8,23 +8,20 @@
  * }
  */
 public class Solution {
+    int max = Integer.MIN_VALUE;
     public int maxPathSum(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int[] max = new int[1];
-        max[0] = Integer.MIN_VALUE;
-        maxPathSum(root, max);
-        return max[0];
+        subTreeSum(root);
+        return max;
     }
     
-    public int maxPathSum(TreeNode node, int[] max) {
-        if (node == null) {
+    public int subTreeSum(TreeNode root) {
+        if (root == null) {
             return 0;
         }
-        int left = maxPathSum(node.left, max);
-        int right = maxPathSum(node.right, max);
-        int sum = left + right + node.val;
-        max[0] = Math.max(sum, max[0]);
+        int left = subTreeSum(root.left);
+        int right = subTreeSum(root.right);
+        int sum = left + root.val + right;
+        max = Math.max(sum, max);
         sum -= Math.min(left, right);
         return sum > 0 ? sum : 0;
     }

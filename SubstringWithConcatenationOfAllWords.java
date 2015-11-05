@@ -1,43 +1,30 @@
-//O(N * k * l) N is length of S, k is length of L, l is word length in L
+// naive solution, TLE
 public class Solution {
-    public ArrayList<Integer> findSubstring(String S, String[] L) {
-        boolean[] map = new boolean[L.length];
-        int len = L[0].length();
-        int i = 0, j = 0;
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        while (j + len <= S.length()) {
-            String word = S.substring(j, j + len);
-            boolean found = false;
-            for (int k = 0; k < L.length; ++k) {
-                if (!map[k] && word.equals(L[k])) {
-                    map[k] = true;
-                    found = true;
+    public List<Integer> findSubstring(String s, String[] words) {
+        Map<String, Integer> map = new HashMap<>();
+        for (String word: words) {
+            map.put(word, !map.containsKey(word) ? 1 : (map.get(word) + 1));
+        }
+        List<Integer> res = new ArrayList<>();
+        int startIndex = 0;
+        int size = words[0].length();
+        for (int i = 0; i < s.length() - size * words.length; ++i) {
+            String word = s.substring(i, i + size);
+            if (map.containsKey(word)) {
+                Map<String, Integer> cur = new HashMap<>();
+                cur.put(word, 1);
+                for (int j = 1; j < words.length; ++j) {
+                    word = s.substring(i + j * size, i + (j + 1) * size);
+                    cur.put(word, !cur.containsKey(word) ? 1 : (cur.get(word) + 1));
+                    if (!map.containsKey(word) || cur.get(word) > map.get(word)) {
+                        break;
+                    }
+                }
+                if (cur.equals(map)) {
+                    res.add(i);
                 }
             }
-            if (found && checkMap(map)) {
-                result.add(i);
-                i += 1;
-                j = i;
-                Arrays.fill(map, false);
-            }
-            else if (found) {
-                j += len;
-            }
-            else {
-                i += 1;
-                j = i;
-                Arrays.fill(map, false);
-            }
         }
-        return result;
-    }
-    
-    public boolean checkMap(boolean[] map) {
-        for (boolean f : map) {
-            if (!f) {
-                return false;
-            }
-        }
-        return true;
+        return res;
     }
 }

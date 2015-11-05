@@ -7,47 +7,43 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-//O(N)
 public class Solution {
-    public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<Interval> results = new ArrayList<Interval>();
-        if (intervals.size() < 1) {
-            return intervals;
-        }   
+    public List<Interval> merge(List<Interval> intervals) {
+        if (intervals.size() == 0) {
+            return new ArrayList<>();
+        }
         Collections.sort(intervals, new IntervalComparator());
-        int start = intervals.get(0).start, end = intervals.get(0).end;
-        for (int i = 0; i < intervals.size(); ++i) {
-            Interval a = intervals.get(i);
-            if (end < a.start) {
-                results.add(new Interval(start, end));
-                start = a.start;
-                end = a.end;
-            }
-            //special case: [0, 6] [1, 2] [3, 5]
-            else {
-                end = Math.max(end, a.end);
+        int preStart = intervals.get(0).start;
+        int preEnd = intervals.get(0).end;
+        List<Interval> merged = new ArrayList<>();
+        for (int i = 1; i < intervals.size(); ++i) {
+            if (intervals.get(i).start <= preEnd) {
+                // This Math.max is for case [1, 4] [2, 3]
+                preEnd = Math.max(preEnd, intervals.get(i).end);
+            } else {
+                merged.add(new Interval(preStart, preEnd));
+                preStart = intervals.get(i).start;
+                preEnd = intervals.get(i).end;
             }
         }
-        results.add(new Interval(start, end));
-        return results;
+        merged.add(new Interval(preStart, preEnd));
+        return merged;
     }
-}
-
-class IntervalComparator implements Comparator<Interval> {
-    public final int compare(Interval a, Interval b) {
-        if (a.start < b.start) {
-            return -1;
-        }
-        else if (a.start > b.start) {
-            return 1;
-        }
-        else if (a.end <= b.end) {
-            return -1;
-        }
-        else {
-            return 1;
+    
+    class IntervalComparator implements Comparator<Interval> {
+        @Override
+        public int compare(Interval i1, Interval i2) {
+            if (i1.start < i2.start) {
+                return -1;
+            } else if (i1.start > i2.start) {
+                return 1;
+            } else if (i1.end < i2.end) {
+                return -1;
+            } else if (i1.end > i2.end) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 }
