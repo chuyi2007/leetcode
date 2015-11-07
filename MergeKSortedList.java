@@ -3,42 +3,31 @@
  * public class ListNode {
  *     int val;
  *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
+ *     ListNode(int x) { val = x; }
  * }
  */
 public class Solution {
-    public ListNode mergeKLists(ArrayList<ListNode> lists) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        for (int i = lists.size() - 1; i >=0; --i) {
-            if(lists.get(i) == null) {
-                lists.remove(i);
+    public ListNode mergeKLists(ListNode[] lists) {
+        Queue<ListNode> q = new PriorityQueue<>(new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode a, ListNode b) {
+                return a.val - b.val;
+            }
+        });
+        ListNode sentinel = new ListNode(0);
+        ListNode pre = sentinel;
+        for (ListNode node: lists) {
+            if (node != null) {
+                q.offer(node);
             }
         }
-        ListNode head = null, cur = null;
-        while (lists.size() > 0) {
-            ListNode min = new ListNode(Integer.MAX_VALUE);
-            for (ListNode node: lists) {
-                if (min.val > node.val) {
-                    min = node;
-                }
-            }
-            if (head == null) {
-                head = min;
-                cur = head;
-            }
-            else {
-                cur.next = min;
-                cur = cur.next;
-            }
-            lists.remove(min);
-            if (min.next != null) {
-                lists.add(min.next);
+        while (!q.isEmpty()) {
+            pre.next = q.poll();
+            pre = pre.next;
+            if (pre.next != null) {
+                q.offer(pre.next);
             }
         }
-        return head;
+        return sentinel.next;
     }
 }

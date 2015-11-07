@@ -1,69 +1,36 @@
 public class Solution {
-    //O(N), N is number of words
-    public ArrayList<String> fullJustify(String[] words, int L) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int count = 0;
-        LinkedList<String> line = new LinkedList<String>();
-        ArrayList<String> results = new ArrayList<String>();
-        for (int i = 0; i < words.length; ++i) {
-            //add one right space to count
-            count += words[i].length() + 1;
-            //line
-            line.offer(words[i]);
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> res = new ArrayList<>();
+        for (int i = 0, nextLineIndex = 0; i < words.length; i = nextLineIndex) {
+            int curLen;
+            for (curLen = 0; nextLineIndex < words.length && curLen + words[nextLineIndex].length() <= maxWidth;) {
+                curLen += words[nextLineIndex++].length() + 1;
+            }
+            --curLen;
+            int numOfWords = nextLineIndex - i;
+            int numOfSpace = 1, extra = 0;
+            // not a single word line or last line
+            if (numOfWords != 1 && nextLineIndex < words.length) {
+                numOfSpace += (maxWidth - curLen) / (numOfWords - 1);
+                extra = (maxWidth - curLen) % (numOfWords - 1);
+            }
             
-            //if this line has more chars than L
-            if (count >= L) {
-                //if last word exceeds, remove it
-                if (count - 1 > L) {
-                    //remove last word from line
-                    count -= line.pollLast().length() + 1;
-                    --i;
+            StringBuilder curLine = new StringBuilder();
+            for (int j = i; j < nextLineIndex - 1; ++j) {
+                curLine.append(words[j]);
+                for (int s = numOfSpace; s > 0; --s) {
+                    curLine.append(' ');
                 }
-                //edge case, if line only contains one word
-                if (line.size() == 1) {
-                    String result = "";
-                    result += line.poll() + fillSpace(L - count + 1);
-                    results.add(result);
+                if (extra-- > 0) {
+                    curLine.append(' ');
                 }
-                //normal case, where two or more words exists
-                else {
-                    //total space left without consider the one space for count
-                    int totalSpace = L - count + 1;
-                    //average space per slot
-                    int ave = totalSpace/(line.size() - 1);
-                    //remaining space
-                    int remain = totalSpace - ave * (line.size() - 1);
-                    String result = "";
-                    while (line.size() > 1) {
-                        //space size, left should have more
-                        int size = remain-- > 0 ? ave + 1 : ave;
-                        result += line.poll() + fillSpace(size + 1);
-                    }
-                    //last word in the line
-                    result += line.poll();
-                    results.add(result);
-                }
-                count = 0;
             }
-        }
-        //last line
-        if (line.peek() != null) {
-            String result = "";
-            int size = L;
-            while (line.peek() != null) {
-                size -= line.peek().length() + 1;
-                result += line.poll() + " ";
+            curLine.append(words[nextLineIndex - 1]);
+            while (maxWidth > curLine.length()) {
+                curLine.append(' ');
             }
-            result += fillSpace(size);
-            results.add(result);
+            res.add(curLine.toString());
         }
-        return results;
-    }
-    
-    public String fillSpace(int size) {
-        char[] space = new char[size];
-        Arrays.fill(space, ' ');
-        return new String(space);
+        return res;
     }
 }
