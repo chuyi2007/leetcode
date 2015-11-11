@@ -1,77 +1,112 @@
-//Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
-//get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
-//set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
-
-//kind of cheating
 import java.util.LinkedHashMap;
 public class LRUCache {
-    private Map<Integer, Integer> pairs;
-    private int capacity;
+    class DListNode {
+        DListNode pre;
+        DListNode next;
+        int key;
+        int val;
+        public DListNode(int key, int val) {
+            this.key = key;
+            this.val = val;
+            this.pre = null;
+            this.next = null;
+        }
+    }
     
-    public LRUCache(int c) {
-        this.capacity = c;
-        this.pairs = new LinkedHashMap<Integer, Integer>() {
-            protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+    private void remove(DListNode node) {
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        node.next = null;
+        node.pre = null;
+    }
+    
+    private void update(DListNode node) {
+        this.remove(node);
+        this.addFirst(node);
+    }
+    
+    private DListNode removeFromTail() {
+        DListNode pre = tail.pre;
+        tail.pre = pre.pre;
+        pre.pre.next = tail;
+        pre.next = null;
+        pre.pre = null;
+        return pre;
+    }
+    
+    private void addFirst(DListNode node) {
+        DListNode next = head.next;
+        next.pre = node;
+        node.pre = head;
+        head.next = node;
+        node.next = next;
+    }
+    
+    private DListNode head;
+    private DListNode tail;
+    Map<Integer, DListNode> map;
+    int capacity;
+    
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        map = new HashMap<>();
+        head = new DListNode(0, 0);
+        tail = new DListNode(0, 0);
+        head.next = tail;
+        tail.pre = head;
+    }
+    
+    public int get(int key) {
+        if (!map.containsKey(key)) {
+            return -1;
+        }
+        DListNode node = map.get(key);
+        update(node);
+        return node.val;
+    }
+    
+    public void set(int key, int value) {
+        if (!map.containsKey(key)) {
+            DListNode node = new DListNode(key, value);
+            addFirst(node);
+            map.put(key, node);
+            if (map.size() > capacity) {
+                DListNode removed = removeFromTail();
+                map.remove(removed.key);
+            }
+        } else {
+            DListNode node = map.get(key);
+            node.val = value;
+            update(node);
+        }
+    }
+}
+import java.util.LinkedHashMap;
+public class LRUCache {
+    Map<Integer, Integer> map;
+    public LRUCache(int capacity) {
+        map = new LinkedHashMap<Integer, Integer>() {
+            @Override
+            public boolean removeEldestEntry(Map.Entry<Integer, Integer> entry) {
                 return size() > capacity;
             }
         };
     }
     
     public int get(int key) {
-        if (pairs.containsKey(key)) {
-            int value = pairs.get(key);
-            pairs.remove(key);
-            pairs.put(key, value);
-            return pairs.get(key);
-        }
-        else {
+        if (!map.containsKey(key)) {
             return -1;
         }
+        int val = map.get(key);
+        map.remove(key);
+        map.put(key, val);
+        return val;
     }
     
     public void set(int key, int value) {
-        if (pairs.containsKey(key)) {
-            pairs.remove(key);
+        if (map.containsKey(key)) {
+            map.remove(key);
         }
-        pairs.put(key, value);
-    }
-}
-
-//can not pass large test
-//each operation is O(n)
-public class LRUCache {
-    Map<Integer, Integer> pairs;
-    LinkedList<Integer> orders;
-    int capacity;
-    
-    public LRUCache(int capacity) {
-        this.capacity = capacity;
-        this.pairs = new HashMap<Integer, Integer>();
-        this.orders = new LinkedList<Integer>();
-    }
-    
-    public int get(int key) {
-        if (pairs.containsKey(key)) {
-            orders.remove(new Integer(key));
-            orders.addLast(key);
-            return pairs.get(key);
-        }
-        else {
-            return -1;
-        }
-    }
-    
-    public void set(int key, int value) {
-        if (pairs.containsKey(key)) {
-            pairs.put(key, value);
-            orders.remove(new Integer(key));
-            orders.addLast(key);
-            return;
-        }
-        if (pairs.size() >= capacity) {
-            pairs.remove(orders.removeFirst());
-        }
-        orders.addLast(key);
-        pairs.put(key, value);
+        map.put(key, value);
     }
 }

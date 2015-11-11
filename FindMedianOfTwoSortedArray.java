@@ -1,80 +1,23 @@
-double findMedianBaseCase(int med, int C[], int n) {
-  if (n == 1)
-    return (med+C[0])/2.0;
- 
-  if (n % 2 == 0) {
-    int a = C[n/2 - 1], b = C[n/2];
-    if (med <= a)
-      return a;
-    else if (med <= b)
-      return med;
-    else /* med > b */
-      return b;
-  } else {
-    int a = C[n/2 - 1], b = C[n/2], c = C[n/2 + 1];
-    if (med <= a)
-      return (a+b) / 2.0;
-    else if (med <= c)
-      return (med+b) / 2.0;
-    else /* med > c */
-      return (b+c) / 2.0;
-  }
-}
- 
-double findMedianBaseCase2(int med1, int med2, int C[], int n) {
-  if (n % 2 == 0) {
-    int a = (((n/2-2) >= 0) ? C[n/2 - 2] : INT_MIN);
-    int b = C[n/2 - 1], c = C[n/2];
-    int d = (((n/2 + 1) <= n-1) ? C[n/2 + 1] : INT_MAX);
-    if (med2 <= b)
-      return (b+max(med2,a)) / 2.0;
-    else if (med1 <= b)
-      return (b+min(med2,c)) / 2.0;
-    else if (med1 >= c)
-      return (c+min(med1,d)) / 2.0;
-    else if (med2 >= c)
-      return (c+max(med1,b)) / 2.0;
-    else  /* a < med1 <= med2 < b */
-      return (med1+med2) / 2.0;
-  } else {
-    int a = C[n/2 - 1], b = C[n/2], c = C[n/2 + 1];
-    if (med1 >= b)
-      return min(med1, c);
-    else if (med2 <= b)
-      return max(med2, a);
-    else  /* med1 < b < med2 */
-      return b;
-  }
-}
- 
-double findMedianSingleArray(int A[], int n) {
-  assert(n > 0);
-  return ((n%2 == 1) ? A[n/2] : (A[n/2-1]+A[n/2])/2.0);
-}
- 
-double findMedianSortedArrays(int A[], int m, int B[], int n) {
-  assert(m+n >= 1);
-  if (m == 0)
-    return findMedianSingleArray(B, n);
-  else if (n == 0)
-    return findMedianSingleArray(A, m);
-  else if (m == 1)
-    return findMedianBaseCase(A[0], B, n);
-  else if (n == 1)
-    return findMedianBaseCase(B[0], A, m);
-  else if (m == 2)
-    return findMedianBaseCase2(A[0], A[1], B, n);
-  else if (n == 2)
-    return findMedianBaseCase2(B[0], B[1], A, m);
- 
-  int i = m/2, j = n/2, k;
-  if (A[i] <= B[j]) {
-    k = ((m%2 == 0) ? min(i-1, n-j-1) : min(i, n-j-1));
-    assert(k > 0);
-    return findMedianSortedArrays(A+k, m-k, B, n-k);
-  } else {
-    k = ((n%2 == 0) ? min(m-i-1, j-1) : min(m-i-1, j));
-    assert(k > 0);
-    return findMedianSortedArrays(A, m-k, B+k, n-k);
-  }
-}
+ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+    int N1 = nums1.size();
+    int N2 = nums2.size();
+    if (N1 < N2) return findMedianSortedArrays(nums2, nums1);   // Make sure A2 is the shorter one.
+
+    if (N2 == 0) return ((double)nums1[(N1-1)/2] + (double)nums1[N1/2])/2;  // If A2 is empty
+
+    int lo = 0, hi = N2 * 2;
+    while (lo <= hi) {
+        int mid2 = (lo + hi) / 2;   // Try Cut 2 
+        int mid1 = N1 + N2 - mid2;  // Calculate Cut 1 accordingly
+
+        double L1 = (mid1 == 0) ? INT_MIN : nums1[(mid1-1)/2];  // Get L1, R1, L2, R2 respectively
+        double L2 = (mid2 == 0) ? INT_MIN : nums2[(mid2-1)/2];
+        double R1 = (mid1 == N1 * 2) ? INT_MAX : nums1[(mid1)/2];
+        double R2 = (mid2 == N2 * 2) ? INT_MAX : nums2[(mid2)/2];
+
+        if (L1 > R2) lo = mid2 + 1;     // A1's lower half is too big; need to move C1 left (C2 right)
+        else if (L2 > R1) hi = mid2 - 1;    // A2's lower half too big; need to move C2 left.
+        else return (max(L1,L2) + min(R1, R2)) / 2; // Otherwise, that's the right cut.
+    }
+    return -1;
+} 

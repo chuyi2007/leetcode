@@ -1,33 +1,20 @@
 public class Solution {
     public String shortestPalindrome(String s) {
-        if (s == null || s.length() < 2) {
+        if (s.length() == 0) {
             return s;
         }
-        String result = null;
-        int mid = (int) Math.ceil(s.length() / 2.0);
-        for (int i = mid; i >= 0; --i) {
-            if ((result = findLongestPalindrome(s, i - 1, i)) != null) {
-                return result;
-            }
-            if ((result = findLongestPalindrome(s, i - 1, i - 1)) != null) {
-                return result;
+        int j = 0;
+        for (int i = s.length() - 1; i >= 0; --i) {
+            if (s.charAt(i) == s.charAt(j)) {
+                ++j;
             }
         }
-        return result;
-    }
-    
-    public String findLongestPalindrome(String s, int l, int r) {
-        while (l >= 0 && r < s.length()) {
-            if (s.charAt(l) != s.charAt(r)) {
-                break;
-            }
-            --l;
-            ++r;
+        if (j == s.length()) {
+            return s;
         }
-        if (l >= 0) {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder(s.substring(r));
-        return sb.reverse().toString() + s;
+        String suffix = s.substring(j);
+        return new StringBuilder(suffix).reverse().toString() + 
+            shortestPalindrome(s.substring(0, j)) +
+            suffix;
     }
 }

@@ -1,28 +1,17 @@
 public class Solution {
     public List<String> summaryRanges(int[] nums) {
-        if (nums.length == 0) {
-            return new ArrayList<String>();
-        }
-        List<String> result = new ArrayList<String>();
-        if (nums.length == 1) {
-            result.add(String.valueOf(nums[0]));
-            return result;
-        }
-        int i = 0, j = 1;
-        while (j < nums.length) {
-            if (nums[j] - nums[i] != j - i) {
-                result.add(createRange(i, j, nums));
-                i = j++;
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < nums.length; ++i) {
+            int start = nums[i];
+            while (i < nums.length - 1 && nums[i + 1] == nums[i] + 1) {
+                ++i;
+            }
+            if (nums[i] != start) {
+                res.add(start + "->" + nums[i]);
             } else {
-                ++j;
+                res.add(String.valueOf(start));
             }
         }
-        result.add(createRange(i, j, nums));
-        return result;
-    }
-    
-    // j is exclusive    
-    public String createRange(int i, int j, int[] nums) {
-        return j - i == 1 ? String.valueOf(nums[i]) : String.valueOf(nums[i]) + "->" + String.valueOf(nums[j - 1]);
+        return res;
     }
 }

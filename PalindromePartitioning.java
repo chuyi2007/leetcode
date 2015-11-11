@@ -1,35 +1,43 @@
 public class Solution {
+    /**
+     * @param s: A string
+     * @return: A list of lists of string
+     */
     public List<List<String>> partition(String s) {
-        boolean[][] dp = new boolean[s.length()][s.length()];
-        for (int i = 0; i < s.length(); ++i) {
-            dp[i][i] = true;
-        }
-        for (int i = 1; i < s.length(); ++i) {
-            dp[i][i - 1] = s.charAt(i) == s.charAt(i - 1);
-            for (int j = i - 2; j >= 0; --j) {
-                dp[i][j] = dp[i - 1][j + 1] && s.charAt(i) == s.charAt(j);
+        // write your code here
+        int n = s.length();
+        boolean[][] dp = new boolean[n + 1][n + 1];
+        for (int j = 1; j <= n; ++j) {
+            dp[j][j] = true;
+            for (int i = j; i > 0; --i) {
+                if (s.charAt(i - 1) == s.charAt(j - 1)) {
+                    dp[i][j] = j - i < 2 || dp[i + 1][j - 1];
+                }
             }
         }
-        return constructPalindromes(dp, s, s.length() - 1);
+        List<List<String>> res = new ArrayList<>();
+        List<String> bt = new ArrayList<>();
+        partition(res, bt, s, dp, 1);
+        return res;
     }
     
-    public List<List<String>> constructPalindromes(
-        boolean[][] dp, 
+    public void partition(
+        List<List<String>> res,
+        List<String> bt,
         String s,
+        boolean[][] dp,
         int index
     ) {
-        List<List<String>> palindromes = new ArrayList<>();
-        if (index < 0) {
-            palindromes.add(new ArrayList<>());
+        if (index == s.length() + 1) {
+            res.add(new ArrayList<>(bt));
+            return;
         }
-        for (int i = index; i >= 0; --i) {
+        for (int i = index; i <= s.length(); ++i) {
             if (dp[index][i]) {
-                for (List<String> tmp: constructPalindromes(dp, s, i - 1)) {
-                    tmp.add(s.substring(i, index + 1));
-                    palindromes.add(new ArrayList<>(tmp));
-                }       
+                bt.add(s.substring(index - 1, i));
+                partition(res, bt, s, dp, i + 1);
+                bt.remove(bt.size() - 1);
             }
         }
-        return palindromes;
     }
 }
